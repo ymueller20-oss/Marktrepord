@@ -13,6 +13,13 @@ Marketing-Lernspiel auf Deutsch: Labore, Entscheidungsspiele und Wirtschaftssimu
 - **Effekte:** `FX` (Münzen, Flash, Shake, Banner), `SFX` (WebAudio), `cntRun()` erkennt geänderte KPIs (`.kpi .k`/`.kpi .v`) und `.verdict`-Elemente und löst Feedback aus. Stufen: `P.fx.level` = full | calm | off.
 - **Wichtig:** Schrift und Zahlen nie in Pixel-Fonts. Pixel-Look nur für Bilder, Rahmen und Effekte.
 
+## Markenimperium (Echtzeit-Tycoon)
+- **Engine:** `tyMonth(T,noise)` rechnet einen Monat (Kohorten, CAC/LTV, Lager, Konkurrenz `tyRival`). `tyProj()` rechnet per `structuredClone` eine Hochrechnung, damit die Kasse live mitläuft.
+- **Zeit:** `TYRT` (Geschwindigkeit, rAF-Schleife `tyLoop`), `T.day` 0–30, am Tagesende `tyStep(1)`. Entscheidungsereignisse in `TYINC` halten das Spiel an (`T.dec`).
+- **Welt:** `tyDrawWorld` zeichnet auf ein 480×290-Canvas, `TYB` sind die Gebäude, `TYW` die Figuren. Beschriftungen und Zahlen sind HTML-Hotspots (`.tyhot`, `data-tyv` wird per `nodeValue` aktualisiert, damit Autosave/Glossar/FX nicht jeden Tag feuern).
+- **Alte Spielstände:** `tyFix(T)` ergänzt neue Felder aus `tyNew`.
+- **Balance testen:** `tyNew`/`tyMonth` lassen sich per `new Function` aus `index.html` laden und in Node simulieren (Strategien: passiv ~4,5 Mio., solide mit Lagerausbau ~38–41 Mio.).
+
 ## Module (Auswahl)
 Budget-Simulator, A/B-Test-Labor, Churn-Radar, KI-Arena, Quiz, Mentor, Funnel-Doktor, Attributions-Detektiv, KI-Verhandlung, Marktkampf, Thronfolge, Preis, Krise, Meta-Ads-Simulator (CBO/ABO, Retargeting-Gruppe), Social-Media-Simulator, Markenimperium (Tycoon), Agentur-Tycoon, Produktlebenszyklus (Bass-Modell), Akademie mit Lektionen, Kompetenz-Kompass und Meisterprüfung.
 

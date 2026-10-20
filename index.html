@@ -478,6 +478,27 @@ h1 em{font-style:normal}
 
 .mdist{display:grid;grid-template-columns:minmax(110px,180px) 1fr 44px;gap:8px;align-items:center;font-size:13px}.mdist i{display:block;height:10px;background:var(--data);border-radius:2px;min-width:2px}.mdist b{text-align:right;font-weight:600}
 .msets{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 18px}
+/* Markenimperium: lebendige Welt */
+.tytime{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 10px}
+.tytime .seg button:disabled{opacity:.45;cursor:not-allowed}
+.tyday{flex:1 1 180px;min-width:150px;display:flex;flex-direction:column;gap:4px}
+.tyscene{position:relative;border:3px solid var(--pxsh,var(--line));box-shadow:4px 4px 0 var(--pxsh,var(--line));border-radius:4px;overflow:hidden;background:#101428;line-height:0}
+.tyworld{display:block;width:100%;height:auto;aspect-ratio:480/290;image-rendering:pixelated;image-rendering:crisp-edges}
+.tyhot{position:absolute;background:transparent;border:0;padding:0;margin:0;cursor:pointer;border-radius:3px}
+.tyhot:hover{background:rgba(255,255,255,.1)}
+.tyhot:focus-visible{outline:2px solid #FFF8B0;outline-offset:1px;background:rgba(255,255,255,.12)}
+.tychip{position:absolute;left:50%;bottom:20%;transform:translateX(-50%);background:rgba(10,14,30,.8);color:#fff;border-radius:3px;padding:1px 5px;font:600 clamp(8px,1.55vw,11px)/1.2 var(--f-body,system-ui,sans-serif);text-align:center;white-space:nowrap;pointer-events:none}
+.tychip small{display:block;font-size:.85em;font-weight:500;opacity:.8}
+.tychip b{display:block;font-variant-numeric:tabular-nums}
+.tyhot[data-s=warn] .tychip{background:#A86A10}
+.tyhot[data-s=bad] .tychip{background:#B02020}
+@media (max-width:560px){.tychip small{display:none}.tychip{bottom:14%;padding:0 3px}}
+.tyi-t{font-size:18px}
+.irows{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2px 18px;margin-top:6px}
+.irow{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:5px 0;font-size:13.5px}
+.irow b{font-variant-numeric:tabular-nums;text-align:right}
+.tydec{border:3px solid var(--accent);box-shadow:4px 4px 0 color-mix(in srgb,var(--accent) 40%,transparent);margin:0 0 10px}
+.tydec .btn{display:flex;flex-direction:column;align-items:flex-start;text-align:left;height:auto;padding:10px 12px;gap:2px;white-space:normal}
 </style>
 
 <header class="top"><div class="top-in">
@@ -632,11 +653,11 @@ function home(){
   <div class="sec-h" style="margin-top:8px"><h2>Wirtschaftssimulationen</h2><span class="note">Lange Spiele über Monate und Jahre. Je drei Spielstände, automatisch gespeichert.</span></div>
   <section class="mods">
     <button class="mod feat wide sim" data-go="tycoon">
-      <div><div class="eyebrow">36 Monate · Direktvertrieb · Kohorten & Cash</div>
+      <div><div class="eyebrow">36 Monate · Echtzeit · Lager, Konkurrenz & Cash</div>
       <h3>Markenimperium</h3>
-      <p class="mod-d">Baue Fjord, eine nachhaltige Zahnpflege-Marke, vom Start-up zum Kategorie-Champion. Marketing-Mix, Team, Produktentwicklung, Drogerie, Amazon, Frankreich, Kredit und Investor:innen, dazu KI-Werkzeuge. Mit Kohorten-Heatmap, Marktkarte und Cash-Kurve.</p></div>
+      <p class="mod-d">Baue Fjord, eine nachhaltige Zahnpflege-Marke, vom Start-up zum Kategorie-Champion. Du siehst deine Firma live wachsen: Marketing-Büro, Labor, Lager, Service, Plakate im Park und Kund:innen auf der Straße. Dazu ein Konkurrent, der auf dich reagiert, ein Lager, das Geld bindet, und Krisen, bei denen du entscheiden musst. Mit Kohorten-Heatmap, Marktkarte und Cash-Kurve.</p></div>
       <svg class="simart" viewBox="0 0 300 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 C40 30 50 52 90 54 S150 40 190 24 S260 6 300 2" fill="none" stroke="var(--accent)" stroke-width="3"/><line x1="0" y1="30" x2="300" y2="30" stroke="currentColor" opacity=".3" stroke-dasharray="4 4"/></svg>
-      <div class="mod-f" style="margin-top:0"><div class="tags"><span class="tag">Unit Economics</span><span class="tag">Wachstum</span><span class="tag">Finanzierung</span></div><span class="best">${best('tycoon')!=null?'Bestwert '+eur(best('tycoon')):'Neu'}</span></div>
+      <div class="mod-f" style="margin-top:0"><div class="tags"><span class="tag">Unit Economics</span><span class="tag">Lieferkette</span><span class="tag">Wettbewerb</span></div><span class="best">${best('tycoon')!=null?'Bestwert '+eur(best('tycoon')):'Neu'}</span></div>
     </button>
     <button class="mod" data-go="agency" style="grid-column:span 3">
       <div class="eyebrow">24 Monate · Agentur führen</div>
@@ -1628,6 +1649,9 @@ function viewMarkt(){
 /* ========== LEXIKON: Fachbegriffe ========== */
 const GLOSS=[
  {k:'kohorte',t:'Kohorte',f:'Cohort',de:'Gruppe mit gleichem Startzeitpunkt',c:'Analytics & KI',g:'tycoon',al:['Kohorten','Kohortenanalyse','Kohortentabelle'],d:'Alle Kund:innen, die im selben Zeitraum gewonnen wurden, etwa im selben Monat. Eine Kohortenanalyse verfolgt, wie viele davon nach 1, 2, 3 … Monaten noch kaufen. So sieht man, ob neue Kund:innen besser oder schlechter bleiben als frühere.',ex:'Die Januar-Kohorte hat nach 6 Monaten 55 % Aktive, die mit Rabatt gewonnene Februar-Kohorte nur 28 %.',r:['retention','clv','payback']},
+ {k:'kapitalbindung',t:'Kapitalbindung',f:'Working Capital',de:'Geld, das in Waren und Forderungen steckt',c:'Strategie',g:'tycoon',al:['Working Capital','Umlaufvermögen'],d:'Ware im Lager ist bezahlt, aber noch nicht verkauft. Dieses Geld steht dir nicht für Marketing oder Gehälter zur Verfügung. Wachstum braucht deshalb mehr Kapital, als der Gewinn auf dem Papier zeigt: Erst muss eingekauft werden, dann wird verkauft.',ex:'Bei 1,5 Monaten Reichweite und 20.000 Bestellungen pro Monat liegen rund 200.000 € im Regal.',r:['runway','jkurve']},
+ {k:'sicherheitsbestand',t:'Sicherheitsbestand',f:'Safety Stock',de:'Reserve, damit dir die Ware nicht ausgeht',c:'Strategie',g:'tycoon',al:['Reichweite','Lieferengpass'],d:'Eine Reserve im Lager, die Nachfragespitzen und Lieferverzögerungen abfängt. Zu klein: Leerstand, entgangene Verkäufe und enttäuschte Kund:innen. Zu groß: Geld ist gebunden und Lagerkosten steigen. Bei einem Monat Lieferzeit brauchst du mindestens einen Monat Reichweite.',ex:'Eine Lieferung kommt einen Monat später: Wer nur 0,7 Monate Reichweite hat, verkauft in der Zwischenzeit ins Leere.',r:['kapitalbindung','runway']},
+ {k:'preiskampf',t:'Preiskampf',f:'Price War',de:'Wettbewerb über immer niedrigere Preise',c:'Strategie',g:'tycoon',al:['Preiskrieg','Preiskriege'],d:'Anbieter unterbieten sich gegenseitig, bis die Margen schrumpfen. Wer mehr Marke, Zufriedenheit und Kapital hat, hält länger durch. Oft ist es klüger, über Qualität und Bekanntheit zu gewinnen, statt jeden Preisschritt mitzugehen.',ex:'Dentara senkt auf 18 €: Wenn du mitgehst, sinkt deine Marge pro Paket von 12 € auf 4 €.',r:['ltvcac','nps']},
  {k:'payback',t:'Amortisation',f:'CAC Payback Period',de:'Zeit, bis eine Kundin ihre Akquisekosten eingespielt hat',c:'Kennzahlen',g:'tycoon',al:['Payback','Amortisationsdauer'],fx:'Amortisation ≈ CAC ÷ (Deckungsbeitrag pro Monat und Kundin)',ex:'30 € CAC, 7,15 € Deckungsbeitrag pro Monat → gut 4 Monate.',d:'Wie viele Monate es dauert, bis der Deckungsbeitrag einer Kundin ihre Akquisekosten gedeckt hat. Je länger, desto mehr Cash bindet Wachstum.',r:['cac','clv','runway']},
  {k:'ltvcac',t:'LTV:CAC',f:'Lifetime Value to Customer Acquisition Cost',de:'Kundenwert im Verhältnis zu den Akquisekosten',c:'Kennzahlen',g:'tycoon',al:['Kundenwert : CAC','LTV/CAC'],fx:'LTV:CAC = Kundenwert ÷ Akquisekosten pro Kundin',d:'Wie viel Deckungsbeitrag eine Kundin über ihre Lebenszeit im Verhältnis zu ihren Akquisekosten bringt. Faustregel: ab etwa 3 : 1 gesund. Unter 1 : 1 vernichtet jede neue Kundin Geld.',r:['clv','cac','payback']},
  {k:'runway',t:'Runway',de:'Reichweite des Geldes',c:'Kennzahlen',g:'tycoon',al:['Reichweite des Geldes','Burn-Rate','Burn Rate'],fx:'Runway = Kasse ÷ monatlicher Verlust (Burn-Rate)',d:'Wie viele Monate das vorhandene Geld beim aktuellen Verlust noch reicht. Die Burn-Rate ist der monatliche Verlust. Unter 6 Monaten Runway wird es eng, weil Finanzierungen Zeit brauchen.',r:['payback','jkurve']},
@@ -2670,19 +2694,32 @@ const TYEV={
  25:{t:'Kostenschub',txt:'Bambus und Verpackung werden teurer: Warenkosten +12 % dauerhaft.',cogs:1},
  29:{t:'KI-Suche',txt:'KI-Assistenten empfehlen beim Einkaufen immer öfter Produkte. Bewertungen, Zufriedenheit und Markenbekanntheit zählen ab jetzt mehr.',ai:1},
  34:{t:'Black Friday',txt:'Black Friday: 50 % mehr Nachfrage, Werbung 40 % teurer.',demand:1.5,cpm:1.4}};
-function tyNew(slot){return{slot,m:0,cash:400000,debt:0,own:1,aw:0.02,bstock:0,nps:42,price:24,perf:15000,brand:0,infl:3000,mails:4,discount:false,team:{mkt:1,crm:0,cs:1,rd:1,data:0},pend:{mkt:0,crm:0,cs:0,rd:0,data:0},prods:['brush'],dev:'tabs',devProg:0,coh:[],retail:false,amazon:false,fr:false,capi:false,aiCs:false,aiContent:false,discHang:0,cogsMul:1,copy:false,ai:false,hist:[],news:[{m:0,t:'Start',txt:'Fjord startet mit einem Bambus-Zahnbürsten-Abo für 24 € und 400.000 € Kapital. 36 Monate Zeit, um eine Marke aufzubauen.'}],done:false,vcOffer:null,vcDone:false,dead:false}}
+function tyNew(slot){return{slot,m:0,cash:450000,debt:0,own:1,aw:0.02,bstock:0,nps:42,price:24,perf:15000,brand:0,infl:3000,mails:4,discount:false,team:{mkt:1,crm:0,cs:1,rd:1,data:0},pend:{mkt:0,crm:0,cs:0,rd:0,data:0},prods:['brush'],dev:'tabs',devProg:0,coh:[],retail:false,amazon:false,fr:false,capi:false,aiCs:false,aiContent:false,discHang:0,cogsMul:1,copy:false,ai:false,hist:[],news:[{m:0,t:'Start',txt:'Fjord startet mit einem Bambus-Zahnbürsten-Abo für 24 € und 450.000 € Kapital. 36 Monate Zeit, um eine Marke aufzubauen.'}],done:false,vcOffer:null,vcDone:false,dead:false,day:0,stock:5000,inbound:0,safety:1.5,wh:0,supp:1,sdelay:0,lost:0,fill:1,pr:0,inc:[],dec:null,rival:tyRivalNew(),supp2:false,lastLearn:null,atkM:null,sold:false,saleVal:0}}
+function tyRivalNew(){return{price:26,aw:0.05,ad:20000,cash:500000,dead:false,mood:'Premium',last:0}}
+function tyFix(T){const d=tyNew(0);Object.keys(d).forEach(k=>{if(T[k]===undefined)T[k]=d[k]});return T}
+const TYUNIT=7,TYWH=[12000,30000,70000];
+/* Konkurrenz: Dentara reagiert auf deine Preise und deine Größe */
+function tyRival(T){const R=T.rival;if(R.dead)return{pf:1,cpm:1};const h=T.hist[T.hist.length-1],big=(h?h.act:0)/TYC.N0;
+  if(T.m>=4&&T.m-R.last>=3){R.last=T.m;
+    if(big>0.0015&&R.price>16&&T.price<=R.price+2){R.price-=2;R.mood='Preiskampf';T.news.push({m:T.m,t:'Konkurrenz',txt:`Dentara senkt den Preis auf ${R.price} € und greift dich an. Ein Preiskampf kostet beide Seiten Marge.`})}
+    else if(T.price>R.price+3&&R.price<30){R.price+=1;R.mood='Premium'}
+    else if(R.aw<T.aw*1.2&&R.cash>150000){R.ad=Math.min(60000,R.ad+10000);R.mood='Werbeoffensive';T.news.push({m:T.m,t:'Konkurrenz',txt:'Dentara erhöht sein Werbebudget. Die Klickpreise steigen für alle.'})}}
+  R.aw=clamp(R.aw*0.97+R.ad/1.2e6+(R.mood==='Preiskampf'?0.002:0),0.01,0.5);R.cash+=(R.price-13)*3200-R.ad-18000;
+  if(R.cash<0){R.dead=true;R.mood='Pleite';T.aw=clamp(T.aw+0.01,0,0.85);T.news.push({m:T.m,t:'Konkurrenz',txt:'Dentara ist zahlungsunfähig. Der Preiskampf war für den Rivalen nicht durchzuhalten, seine Kund:innen sind frei.'})}
+  const gap=(T.price-R.price)/12,sh=R.aw/(R.aw+T.aw+0.02),press=clamp(gap,-0.25,1)*sh;return{pf:1-0.35*Math.max(0,press)+0.08*Math.max(0,-press),cpm:1+R.ad/150000}}
 function tyActive(T){return T.coh.reduce((a,c)=>a+c.act,0)}
 function tyProdBonus(T,k){return T.prods.reduce((a,p)=>a+(TYPROD[p][k]||0),0)}
 function tyMonth(T,noise){
-  const ev=TYEV[T.m]||{};if(ev.copy)T.copy=true;if(ev.cogs)T.cogsMul*=1.12;if(ev.ai)T.ai=true;
+  tyFix(T);if(T.sdelay>0)T.sdelay--;else{T.stock+=T.inbound;T.inbound=0}
+  const rv=tyRival(T),ev=TYEV[T.m]||{};T.pr=Math.max(0,T.pr*0.7-0.05);if(ev.copy)T.copy=true;if(ev.cogs)T.cogsMul*=1.12;if(ev.ai)T.ai=true;
   const rec=T.m>=17&&T.m<=22,dem=(ev.demand||1)*(rec?0.85:1),N=TYC.N0*(T.fr?1.6:1)*dem,tm=T.team,act0=tyActive(T);
   T.bstock=T.bstock*0.6+T.brand;const brandEff=1-Math.exp(-T.bstock/450000),inflEff=1-Math.exp(-T.infl/160000);
   const contentEff=Math.min(tm.mkt,4)*0.0012*(T.aiContent?1.5:1),wom=act0/N*(T.nps/50);
   T.aw=clamp(T.aw*0.965+(1-T.aw)*(0.055*brandEff+0.02*inflEff+contentEff+wom*0.06+(ev.aw||0)+(T.retail?0.003:0)+tyProdBonus(T,'aw')/12),0,0.85);
-  const pe=rec?2.4:1.8;let pf=Math.pow(24/T.price,pe)*(T.discount?1.35:1)*(1-0.04*T.discHang);if(T.copy)pf*=clamp(0.78+T.aw*1.1,0.78,1);
+  const pe=rec?2.4:1.8;let pf=Math.pow(24/T.price,pe)*(T.discount?1.35:1)*(1-0.04*T.discHang)*rv.pf*(1-0.25*Math.min(1,T.pr));if(T.copy)pf*=clamp(0.78+T.aw*1.1,0.78,1);
   const sig=(T.capi?1:(T.m>=3?0.78:0.88))*(1+0.06*Math.min(tm.data,2));const paid=T.perf+T.infl,mcap=Math.max(1,tm.mkt)*60000,over=paid>mcap?Math.pow(mcap/paid,0.5):1;
   const capP=45000*(1+4*T.aw)*(T.fr?1.6:1);
-  const cacP=12/(0.5+2*T.aw)/sig/over*(ev.cpm||1)/pf*(1+0.6*Math.pow(T.perf/capP,1.2))*(T.aiContent?0.92:1)*(T.ai?1.05:1);
+  const cacP=12/(0.5+2*T.aw)/sig/over*(ev.cpm||1)*rv.cpm/pf*(1+0.6*Math.pow(T.perf/capP,1.2))*(T.aiContent?0.92:1)*(T.ai?1.05:1);
   const newP=T.perf>0?T.perf/cacP:0;
   const cacI=20/(0.6+1.6*T.aw)/over/pf*(1+0.6*Math.pow(T.infl/40000,1.1));const newI=T.infl>0?T.infl/cacI:0;
   let newO=(act0*0.008*(T.nps/50)+T.aw*N*0.00004*(1+tm.mkt*0.25)*(T.aiContent?1.3:1))*pf*(ev.org||1)*(T.ai?clamp(0.5+T.nps/60+T.aw,0.6,1.8):1);
@@ -2694,30 +2731,36 @@ function tyMonth(T,noise){
   T.coh.forEach(c=>{c.act*=r*(c.disc?0.97:1);if(c.h&&c.h.length<12)c.h.push(Math.round(c.act))});
   const freq=0.55+tyProdBonus(T,'freq')+crmCov*0.012*Math.min(T.mails,6)-spam;
   const aov=T.price+tyProdBonus(T,'aov')*0.55,dm=T.discount?0.8:1;
-  const ordersRep=tyActive(T)*freq,ordersNew=newC,orders=ordersRep+ordersNew;
+  let ordersRep=tyActive(T)*freq,ordersNew=newC,amzO=amzOrders,retU=retUnits;
+  const dem0=ordersRep+ordersNew+amzO+retU,fill=dem0>0?Math.min(1,T.stock/dem0):1;T.fill=fill;
+  if(fill<1){ordersRep*=fill;ordersNew*=fill;amzO*=fill;retU*=fill;newC*=fill;T.lost+=dem0*(1-fill)}
+  const orders=ordersRep+ordersNew;
   const unitDB=aov*dm-aov*TYC.cogsR*T.cogsMul-TYC.ful;
   const revDTC=orders*aov*dm,dbDTC=orders*unitDB;
-  const revAmz=amzOrders*T.price,dbAmz=amzOrders*(T.price*0.85-T.price*TYC.cogsR*T.cogsMul-3);
-  const revRet=retUnits*T.price*0.55,dbRet=retUnits*(T.price*0.55-T.price*TYC.cogsR*T.cogsMul);
+  const revAmz=amzO*T.price,dbAmz=amzO*(T.price*0.85-T.price*TYC.cogsR*T.cogsMul-3);
+  const revRet=retU*T.price*0.55,dbRet=retU*(T.price*0.55-T.price*TYC.cogsR*T.cogsMul);
   T.coh.push({m:T.m,n:newC,act:newC,disc:T.discount,h:[Math.round(newC)]});
   const tickets=orders*0.07*(T.m===T.launchM?1.25:1),csCap=tm.cs*900*(T.aiCs?1.4:1),load=csCap?tickets/csCap:3;
-  T.nps=clamp(T.nps+(45-T.nps)*0.04+(load<=0.8?0.9:load<=1?0.2:-7*(load-1))+(T.launchM===T.m?2:0)+(T.aiCs?-0.4:0)+(T.discount?-0.6:0)+(spam?-1.5:0)+(r>0.9?0.4:0),0,80);
+  T.nps=clamp(T.nps+(45-T.nps)*0.04+(load<=0.8?0.9:load<=1?0.2:-7*(load-1))+(T.launchM===T.m?2:0)+(T.aiCs?-0.4:0)+(T.discount?-0.6:0)+(spam?-1.5:0)-(1-fill)*14+(r>0.9?0.4:0),0,80);
   if(T.dev&&!T.prods.includes(T.dev)){T.devProg+=tm.rd*20;if(T.devProg>=TYPROD[T.dev].dev){T.prods.push(T.dev);T.launchM=T.m+1;T.news.push({m:T.m,t:'Launch',txt:`${TYPROD[T.dev].n} ist fertig und im Shop.`});T.devProg=0;T.dev=Object.keys(TYPROD).find(k=>!T.prods.includes(k))||null}}
   const heads=Object.values(tm).reduce((a,b)=>a+b,0),teamCost=heads*TYC.salary,tools=(T.aiCs?2000:0)+(T.aiContent?1500:0)+(T.capi?800:0)+(T.retail?3000:0)+(T.amazon?1500:0)+(T.fr?6000:0),crmCost=tyActive(T)*T.mails*0.002;
   const mkt=T.perf+T.brand+T.infl,interest=T.debt*0.08/12;
-  const db=dbDTC+dbAmz+dbRet,rev=revDTC+revAmz+revRet,profit=db-mkt-teamCost-TYC.fixed-tools-crmCost-interest;
-  T.cash+=profit;
+  const cu=TYUNIT*T.cogsMul*T.supp,sold=orders+amzO+retU,hold=T.stock*cu*0.008,whRent=T.wh*2500;
+  const db=dbDTC+dbAmz+dbRet,rev=revDTC+revAmz+revRet,profit=db-mkt-teamCost-TYC.fixed-tools-crmCost-interest-hold-whRent;
+  T.stock=Math.max(0,T.stock-sold);const cap=TYWH[T.wh],pd=T.hist.length?T.hist[T.hist.length-1].dem:0,gr=pd>0?clamp(dem0/pd-1,0.04,0.5):0.2,want=Math.round(dem0*(1+gr)*Math.max(1,T.safety)),buy=T.m>=TYC.months-1?0:Math.max(0,Math.min(want-T.stock-T.inbound,cap-T.stock-T.inbound)),buyCost=buy*cu;T.inbound+=buy;
+  const cogsExp=(orders*aov+amzO*T.price+retU*T.price)*TYC.cogsR*T.cogsMul;
+  T.cash+=profit+cogsExp-buyCost;
   Object.keys(T.pend).forEach(k=>{T.team[k]+=T.pend[k];T.pend[k]=0});
   T.discHang=T.discount?Math.min(3,T.discHang+1):Math.max(0,T.discHang-0.5);
-  const act=tyActive(T),paidNew=newP+newI,cacB=paidNew>0?(T.perf+T.infl)/paidNew:null,ltv=unitDB*freq/(1-r)+unitDB;
-  const H={m:T.m,rev,db,profit,cash:T.cash,newC,newP,newI,newO,act,orders,aw:T.aw,nps:T.nps,r,cacP,cacB,ltv,revDTC,revAmz,revRet,mkt,teamCost,load,heads,ev:ev.t||null,tickets};
+  const act=tyActive(T),paidNew=(newP+newI)*fill,cacB=paidNew>0?(T.perf+T.infl)/paidNew:null,ltv=unitDB*freq/(1-r)+unitDB;
+  const H={m:T.m,rev,db,profit,cash:T.cash,stock:T.stock,inbound:T.inbound,fill,buyCost,sold,dem:dem0,hold,newC,newP,newI,newO,act,orders,aw:T.aw,nps:T.nps,r,cacP,cacB,ltv,revDTC,revAmz,revRet,mkt,teamCost,load,heads,ev:ev.t||null,tickets};
   const prev3=T.hist[T.hist.length-3];H.g3=prev3&&prev3.rev>0?Math.pow(rev/prev3.rev,1/3)-1:0;
   H.mult=clamp(0.8+H.g3*25+((cacB?ltv/cacB:3)-1)*0.5+Math.max(0,profit/Math.max(rev,1))*4,0.5,6);H.val=Math.max(0,rev*12*H.mult+T.cash-T.debt);
   T.hist.push(H);if(ev.t)T.news.push({m:T.m,t:ev.t,txt:ev.txt});
   if(!T.vcDone&&!T.vcOffer&&rev*12>=1200000&&H.g3>=0.05){T.vcOffer={amt:1500000,pre:Math.round(H.val/100000)*100000};T.news.push({m:T.m,t:'Investor',txt:`Ein VC-Fonds bietet 1,5 Mio. € bei einer Bewertung von ${Math.round(T.vcOffer.pre/1e5)/10} Mio. €.`})}
   T.m++;if(T.cash<0){T.dead=true;T.done=true;T.news.push({m:T.m-1,t:'Insolvenz',txt:'Das Geld ist aufgebraucht. Fjord muss Insolvenz anmelden.'})}else if(T.m>=TYC.months)T.done=true;
   return H}
-function tyScore(T){const h=T.hist[T.hist.length-1];return T.dead?0:Math.round((h?h.val:0)*T.own)}
+function tyScore(T){const h=T.hist[T.hist.length-1];return T.dead?0:Math.round((T.sold?T.saleVal:(h?h.val:0))*T.own)}
 
 /* --- Grafik-Bausteine für Wirtschaftssimulationen --- */
 function chStack(series,opt){const W=640,H=opt.h||230,L=58,R=12,T0=12,Bt=26,iw=W-L-R,ih=H-T0-Bt,n=series[0].v.length;
@@ -2756,46 +2799,217 @@ function tyCoach(){if(!coachOn()||!TY||TY.done)return'';const T=TY,h=T.hist[T.hi
   if(T.aw<0.08&&T.m>=12)it.push(`<b>Markenbekanntheit ${pct(T.aw,1)}:</b> Ohne Bekanntheit bleibt Performance teuer, und ab Monat 13 greifen Unbekannte eher zur Kopie. Marken-Budget aufbauen, sobald das Geld es erlaubt.`);
   if(T.discHang>=2)it.push('<b>Rabatt-Gewöhnung:</b> Häufige Rabatte senken die Conversion ohne Rabatt und holen Kund:innen mit schlechterer Bindung.');
   if(T.mails>8)it.push('<b>Zu viele E-Mails:</b> Abmeldungen und Ärger kosten Bindung und Zufriedenheit.');
+  if(h.fill<1)it.push(`<b>Lieferengpass:</b> Du konntest nur ${pct(h.fill,0)} der Nachfrage bedienen. Verlorene Verkäufe bringen weder Umsatz noch Wiederkäufe, und enttäuschte Kund:innen senken die Zufriedenheit. Erhöhe den Sicherheitsbestand oder erweitere das Lager.`);
+  else if(h.dem>0&&T.stock/h.dem>2.6)it.push(`<b>Zu viel Ware im Lager:</b> Dein Bestand reicht ${de(T.stock/h.dem,1)} Monate. Das ist gebundenes Geld (${eur(T.stock*TYUNIT*T.cogsMul*T.supp)}), das dir für Marketing fehlt.`);
+  if(!T.rival.dead&&T.rival.mood==='Preiskampf')it.push(`<b>Preiskampf mit Dentara:</b> Er verkauft für ${eur(T.rival.price)}, du für ${eur(T.price)}. Mitgehen kostet Marge, Halten kostet Neukund:innen. Bekanntheit und Zufriedenheit entscheiden, wer länger durchhält.`);
+  if(T.pr>0.3)it.push('<b>Imageschaden:</b> Nach dem viralen Post zögern Neukund:innen. Gute Zufriedenheit und Zeit helfen, die Wirkung klingt von selbst ab.');
   if(!T.capi)it.push('<b>Ohne Conversions API</b> zahlst du seit dem Tracking-Update deutlich mehr pro Neukunde.');
   return coachBox(`Lagebericht ${tyM(h.m)}`,it,'unit')}
-function viewTycoon(){
-  let h=`${backBtn}<div class="ghead"><div><div class="eyebrow">Wirtschaftssimulation · 36 Monate</div><h2>Markenimperium</h2></div>${TY?`<div class="row"><span class="xp-pill">Spielstand ${TY.slot} · ${TY.done?'Beendet':tyM(TY.m)+' / 36'}</span><button class="btn sm ghost" id="tySlots">Spielstände</button></div>`:''}</div>`;
-  if(!TY){h+=`<p class="lead">Du gründest <b>Fjord</b>, eine nachhaltige Zahnpflege-Marke, die direkt an Kund:innen verkauft, mit einem Bambus-Zahnbürsten-Abo. 36 Monate, 400.000 € Startkapital. Du steuerst Marketing, Team, Produkte, Kanäle und Finanzierung. Am Ende zählt dein Anteil am Unternehmenswert.</p>
-    <div class="slotgrid">${[1,2,3].map(k=>{const S=TYS[k],hh=S&&S.hist[S.hist.length-1];return `<div class="slot"><div class="eyebrow">Spielstand ${k}</div>${S?`<b>${S.done?(S.dead?'Insolvent':'Beendet'):tyM(S.m)+' von 36'}</b><span class="note">Kasse ${eur(S.cash)} · Wert ${hh?eur(hh.val*S.own):'–'}</span><div class="row" style="gap:6px"><button class="btn sm primary" data-tyload="${k}">${S.done?'Ansehen':'Fortsetzen'}</button><button class="btn sm ghost" data-tynew="${k}">Neu</button></div>`:`<span class="note">Leer</span><button class="btn sm primary" data-tynew="${k}">Neues Spiel</button>`}</div>`}).join('')}</div>
-    <p class="note" style="margin-top:10px">Jeder Monat wird automatisch gespeichert.</p>`;
-    $('#view').innerHTML=h;bindGo();
-    $$('[data-tyload]').forEach(b=>b.onclick=()=>{TY=TYS[+b.dataset.tyload];viewTycoon()});
-    $$('[data-tynew]').forEach(b=>b.onclick=()=>{const k=+b.dataset.tynew;if(TYS[k]&&b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Überschreiben?';b.classList.add('primary');return}TYS[k]=tyNew(k);TY=TYS[k];svSchedule();viewTycoon()});return}
-  const T=TY,hh=T.hist[T.hist.length-1],act=tyActive(T);
-  h+=`<section class="dash"><div class="kpis">
-    <div class="kpi"><div class="k">Kasse</div><div class="v ${T.cash<50000?'neg':''}">${eur(T.cash)}</div></div>
-    <div class="kpi"><div class="k">Umsatz Monat</div><div class="v">${hh?eur(hh.rev):'–'}</div></div>
-    <div class="kpi"><div class="k">Gewinn Monat</div><div class="v ${hh&&hh.profit>=0?'pos':'neg'}">${hh?eur(hh.profit):'–'}</div></div>
-    <div class="kpi"><div class="k">Aktive Kund:innen</div><div class="v">${de(act)}</div></div>
-    <div class="kpi"><div class="k">Unternehmenswert</div><div class="v">${hh?eur(hh.val):'–'}</div></div>
-    <div class="kpi"><div class="k">Dein Anteil</div><div class="v">${pct(T.own,0)}</div></div></div>
-   <div class="rings">${chRing(T.aw/0.4,'Markenbekanntheit',pct(T.aw,1),'var(--accent)')}${chRing(T.nps/80,'Zufriedenheit',Math.round(T.nps),'var(--good)')}${chRing(hh&&hh.cacB?hh.ltv/hh.cacB/5:0,'Kundenwert : CAC',hh&&hh.cacB?de(hh.ltv/hh.cacB,1):'–','var(--data)')}${chRing(hh?clamp(hh.r-0.75,0,0.2)/0.2:0,'Bindung pro Monat',hh?pct(hh.r,1):'–','var(--c1)')}</div></section>`;
-  if(T.hist.length){const H=T.hist;
-    h+=`<div class="grid2" style="margin-top:14px"><div class="panel"><div class="row" style="justify-content:space-between"><b>Umsatz nach Kanal</b><div class="legend"><span><span class="sw" style="background:var(--accent)"></span>Shop</span><span><span class="sw" style="background:var(--c1)"></span>Amazon</span><span><span class="sw" style="background:var(--c6)"></span>Handel</span></div></div>
+/* --- Markenimperium: lebendige Welt in Echtzeit --- */
+const TYSEC=1.0;
+const TYB=[
+ {k:'mkt',n:'Marketing',x:14,y:100,w:76,h:46,tab:'mkt',col:'#4A78C8'},
+ {k:'brand',n:'Marken-Studio',x:104,y:100,w:64,h:46,tab:'mkt',col:'#C84A8A'},
+ {k:'rd',n:'Produkt-Labor',x:182,y:100,w:66,h:46,tab:'team',col:'#48A878'},
+ {k:'data',n:'Daten',x:262,y:100,w:42,h:66,tab:'team',col:'#7A5AC8'},
+ {k:'crm',n:'CRM-Studio',x:318,y:100,w:60,h:46,tab:'team',col:'#E08A40'},
+ {k:'rival',n:'Dentara',x:398,y:100,w:68,h:46,tab:'rival',col:'#B83A3A'},
+ {k:'shop',n:'Online-Shop',x:14,y:248,w:76,h:46,tab:'mkt',col:'#2AA8A0'},
+ {k:'wh',n:'Lager',x:104,y:250,w:96,h:56,tab:'stock',col:'#8A7A68'},
+ {k:'cs',n:'Service',x:214,y:248,w:64,h:46,tab:'team',col:'#E0C040'},
+ {k:'amz',n:'Amazon',x:292,y:248,w:56,h:46,tab:'grow',col:'#E08830'},
+ {k:'ret',n:'Drogerie',x:360,y:248,w:56,h:46,tab:'grow',col:'#58B050'},
+ {k:'fr',n:'Frankreich',x:428,y:248,w:44,h:46,tab:'grow',col:'#4868D0'}];
+const TYWD={W:480,H:290};
+/* Entscheidungen, die das Spiel anhalten */
+const TYINC=[
+ {m:5,t:'Lieferengpass',txt:'Ein Container mit Bambus-Rohlingen hängt im Hafen fest. Ohne Gegenmaßnahme kommt deine nächste Lieferung einen Monat später.',ch:[
+  {l:'Luftfracht buchen',d:'18.000 € einmalig, die Lieferung kommt pünktlich.',fx:T=>{T.cash-=18000},learn:'Schnelle Lösungen kosten Marge. Ein höherer Sicherheitsbestand oder ein zweiter Lieferant hätte das günstiger abgefangen.'},
+  {l:'Abwarten',d:'Kostenlos, aber die Lieferung verzögert sich um einen Monat.',fx:T=>{if(!T.supp2)T.sdelay=1},learn:'Ob Abwarten klappt, hängt vom Lagerbestand ab. Wer nur knapp Reichweite hat, verkauft plötzlich ins Leere, und Kund:innen sind enttäuscht.'},
+  {l:'Zweitlieferanten aufbauen',d:'12.000 €, danach 4 % niedrigere Einkaufspreise und keine Lieferverzögerungen mehr.',fx:T=>{T.cash-=12000;T.supp2=true;T.supp=0.96},learn:'Single Sourcing ist ein Klumpenrisiko. Ein zweiter Lieferant kostet einmal Aufwand und spart danach Geld und Nerven.'}]},
+ {m:9,t:'Beschwerde geht viral',txt:'Ein Video zeigt eine splitternde Bambusbürste und bekommt 800.000 Aufrufe. Neukund:innen zögern, bis sich die Lage beruhigt.',ch:[
+  {l:'Öffentlich entschuldigen und Umtausch anbieten',d:'12.000 €. Der Imageschaden bleibt klein.',fx:T=>{T.cash-=12000;T.pr=Math.max(T.pr,0.35);T.nps=Math.min(80,T.nps+2)},learn:'Offene Kommunikation und schnelle Hilfe begrenzen den Schaden. Gute Zufriedenheit zahlt sich hier als Puffer aus.'},
+  {l:'Ignorieren',d:'Kostenlos, aber die Konversion leidet einige Monate.',fx:T=>{T.pr=1},learn:'Wer schweigt, überlässt das Thema anderen. Die Conversion sinkt, bis die Aufmerksamkeit abebbt.'},
+  {l:'Juristisch gegen das Video vorgehen',d:'6.000 €, wirkt aber arrogant.',fx:T=>{T.cash-=6000;T.pr=1.4;T.nps=Math.max(0,T.nps-5)},learn:'Drohungen gegen Kund:innen verstärken Shitstorms (Streisand-Effekt). Zufriedenheit und Reichweite leiden doppelt.'}]},
+ {m:15,t:'Influencer-Skandal',txt:'Eine Influencerin, mit der du arbeitest, steht wegen früherer Aussagen im Shitstorm. Dein Logo hängt an ihrem Kanal.',ch:[
+  {l:'Zusammenarbeit sofort beenden',d:'Kostet etwas Reichweite, aber keine Debatte um Fjord.',fx:T=>{T.aw=Math.max(0,T.aw-0.004)},learn:'Wer Risiken früh abschneidet, verliert kurzfristig Reichweite und sichert die Marke. Verträge mit Ausstiegsklausel helfen.'},
+  {l:'Zu ihr stehen',d:'Riskant: 50 % Solidaritätswelle, 50 % Gegenwind.',fx:T=>{if(Math.random()<0.5){T.aw=Math.min(0.85,T.aw+0.01)}else{T.pr=Math.max(T.pr,0.8);T.aw=Math.max(0,T.aw-0.01)}},learn:'Positionierung polarisiert. Das kann Fans binden und Gegner mobilisieren. Entscheide nach deiner Zielgruppe, nicht nach Bauchgefühl.'},
+  {l:'Alle Influencer-Aktionen pausieren',d:'Influencer-Budget auf 0, du entscheidest später neu.',fx:T=>{T.infl=0},learn:'Pause ist die vorsichtige Mitte: kein Schaden, aber auch keine Reichweite aus diesem Kanal.'}]},
+ {m:20,t:'Datenpanne',txt:'Ein Dienstleister hat 4.000 Kundenadressen versehentlich offen gelassen. Du erfährst es zuerst.',ch:[
+  {l:'Sofort melden und informieren',d:'10.000 € für Anwälte und Kommunikation, Vertrauen sinkt leicht.',fx:T=>{T.cash-=10000;T.nps=Math.max(0,T.nps-2)},learn:'Die DSGVO verlangt Meldung binnen 72 Stunden. Offenheit kostet wenig und schützt vor Bußgeldern.'},
+  {l:'Hoffen, dass es keiner merkt',d:'Mit 40 % Wahrscheinlichkeit kommt es raus und wird sehr teuer.',fx:T=>{if(Math.random()<0.4){T.cash-=150000;T.pr=Math.max(T.pr,1.5);T.nps=Math.max(0,T.nps-8)}},learn:'Verschweigen ist ein Glücksspiel mit schlechten Quoten. Wenn es auffliegt, drohen Bußgeld und der Verlust des Vertrauens.'}]},
+ {m:27,t:'Marketingleitung wird abgeworben',txt:'Ein Konkurrent will deine erfahrenste Marketingkraft. Sie ist bereit zu bleiben, wenn du etwas anbietest.',ch:[
+  {l:'Bonus und Gehaltserhöhung',d:'12.000 € einmalig, sie bleibt.',fx:T=>{T.cash-=12000},learn:'Wissen im Team hat einen Preis. Ersatz kostet meist mehr als Halteprämien (Einarbeitung, Recruiting, Fehler).'},
+  {l:'Gehen lassen und neu besetzen',d:'5.000 € Recruiting, eine Stelle fehlt einen Monat.',fx:T=>{if(T.team.mkt>0){T.team.mkt--;T.pend.mkt++;T.cash-=5000}},learn:'Das spart Gehalt, kostet aber Wirkung und Zeit. Ein Team ohne Doppelbesetzung ist bei Abgängen verwundbar.'}]},
+ {m:31,t:'Übernahmeangebot',txt:'Ein Konzern bietet an, Fjord zu kaufen. Das Angebot liegt etwa 15 % über dem aktuellen Unternehmenswert.',ch:[
+  {l:'Verkaufen',d:'Das Spiel endet sofort mit dem Verkaufspreis.',fx:T=>{const h=T.hist[T.hist.length-1];T.sold=true;T.saleVal=Math.round(h.val*1.15);T.done=true},learn:'Ein sicherer Exit bei fairem Preis ist ein legitimes Ziel. Wer weiter wächst, riskiert Wertverlust, kann aber mehr gewinnen.'},
+  {l:'Ablehnen und weiterspielen',d:'Du hast noch 5 Monate, um mehr aus Fjord zu machen.',fx:T=>{},learn:'Ablehnen lohnt sich nur, wenn dein Wachstum den Aufschlag schlägt. Prüfe Wachstum und Marge der letzten Monate.'}]}];
+const TYRT={speed:0,last:0,raf:0,proj:null,dirty:true,lastLive:0,lastProj:0,lastDraw:0,sel:null};
+const TYW={sp:[],van:[],fx:[],emp:[],t:0,acc:0,rate:0.6,dirty:true};
+function tyProj(){const T=TY;if(!T||T.done){TYRT.proj=null;return}try{const C=structuredClone(T);tyMonth(C,false);TYRT.proj={h:C.hist[C.hist.length-1],cashEnd:C.cash}}catch(e){TYRT.proj=null}TYRT.dirty=false;TYRT.lastProj=performance.now()}
+function tyVals(){const T=TY,R=T.rival,hh=T.hist[T.hist.length-1],PJ=TYRT.proj,P=PJ?PJ.h:hh,f=Math.min(1,T.day/30),v={};
+  const cashEnd=PJ?PJ.cashEnd:T.cash,reach=P&&P.dem>0?T.stock/P.dem:null,state={};
+  v.cash=eur(T.cash+(cashEnd-T.cash)*f);v.rev=P?eur(P.rev*f):'–';v.profit=P?eur(P.profit*f):'–';v.act=de(tyActive(T));v.val=hh?eur(hh.val):'–';v.own=pct(T.own,0);
+  v.aw=pct(T.aw,1);v.nps=''+Math.round(T.nps);v.price=eur(T.price);v.perf=eur(T.perf);v.brand=eur(T.brand);v.infl=eur(T.infl);v.mails=''+T.mails;
+  ['mkt','crm','cs','rd','data'].forEach(k=>v['t'+k]=T.team[k]+(T.pend[k]?' (+'+T.pend[k]+')':''));
+  v.load=P?pct(P.load,0):'–';v.ticket=P?de(P.tickets):'–';v.ccap=de(T.team.cs*900*(T.aiCs?1.4:1));
+  v.cac=P&&P.cacB?eur(P.cacB):'–';v.newc=P?de(P.newC):'–';v.orders=P?de(P.orders):'–';v.ret=P?pct(P.r,1):'–';
+  v.stock=de(T.stock);v.inb=de(T.inbound);v.dem=P?de(P.dem):'–';v.reach=reach!=null?de(reach,1)+' Mon.':'–';v.fill=P?pct(P.fill,0):'100 %';v.lost=de(T.lost);v.cap=de(TYWH[T.wh]);v.tied=eur(T.stock*TYUNIT*T.cogsMul*T.supp);v.hold=P?eur(P.hold):'–';
+  v.rprice=R.dead?'–':eur(R.price);v.raw=pct(R.aw,1);v.rcash=R.dead?'–':eur(R.cash);v.rmood=R.mood;
+  v.dev=T.dev&&!T.prods.includes(T.dev)?TYPROD[T.dev].n+' '+pct(T.devProg/TYPROD[T.dev].dev,0):'Alles entwickelt';
+  v.ltv=P&&P.cacB?de(P.ltv/P.cacB,1)+' : 1':'–';
+  const kp=n=>n+(n===1?' Kopf':' Köpfe');v.c_mkt=kp(T.team.mkt);v.c_brand=pct(T.aw,1);v.c_rd=T.dev&&!T.prods.includes(T.dev)?pct(T.devProg/TYPROD[T.dev].dev,0):'fertig';v.c_data=kp(T.team.data);v.c_crm=kp(T.team.crm);
+  v.c_rival=R.dead?'pleite':eur(R.price);v.c_shop=eur(T.price);v.c_wh=reach!=null?de(reach,1)+' Mon.':'–';v.c_cs=P?pct(P.load,0):'–';
+  v.c_amz=T.amazon?'aktiv':'ausbaubar';v.c_ret=T.retail?'gelistet':T.aw<0.12?'ab 12 %':'möglich';v.c_fr=T.fr?'aktiv':T.m<12?'ab M13':'möglich';
+  state.cs=P&&P.load>1?'bad':P&&P.load>0.85?'warn':'';state.wh=T.fill<1||(reach!=null&&reach<1)?'bad':reach!=null&&reach<1.3?'warn':'';state.rival=!R.dead&&R.mood==='Preiskampf'?'warn':'';
+  state.shop=T.pr>0.3?'warn':'';state.mkt=P&&T.perf+T.infl>Math.max(1,T.team.mkt)*60000?'warn':'';state.brand=T.aw<0.04&&T.m>6?'warn':'';
+  v._s=state;return v}
+function tyLiveText(){const v=tyVals();$$('#view [data-tyv]').forEach(el=>{const t=v[el.dataset.tyv];if(t==null)return;if(el.firstChild&&el.firstChild.nodeType===3){if(el.firstChild.nodeValue!==t)el.firstChild.nodeValue=t}else el.textContent=t});
+  $$('#view [data-tyst]').forEach(el=>{const s=v._s[el.dataset.tyst]||'';if(el.dataset.s!==s)el.dataset.s=s});
+  const T=TY,fr=$('#tyDayBar');if(fr)fr.style.width=(T.day/30*100)+'%';const dt=$('#tyDayTxt');if(dt){const s=`${tyM(T.m)} · Tag ${Math.min(30,Math.floor(T.day)+1)} von 30`;if(dt.firstChild&&dt.firstChild.nodeValue!==s)dt.firstChild.nodeValue=s;else if(!dt.firstChild)dt.textContent=s}
+  const cp=$('#tkCash'),pf=$('#tkProfit'),P=TYRT.proj;if(cp)cp.classList.toggle('neg',parseFloat(String(v.cash).replace(/\./g,'').replace('−','-'))<50000);if(pf&&P)pf.classList.toggle('neg',P.h.profit<0);pf&&P&&pf.classList.toggle('pos',P.h.profit>=0);
+  TYW.rate=clamp(0.35+Math.sqrt(Math.max(0,P?P.h.orders:300))*0.045,0.35,4)}
+/* Gebäude zeichnen */
+function tyWin(c,b,lit,t,col){const cols=Math.max(1,Math.floor((b.w-10)/12)),rows=b.h>=60?4:2;let n=0;for(let r=0;r<rows;r++)for(let i=0;i<cols;i++){const x=b.x+6+i*12+(b.w-10-cols*12)/2,y=b.y-b.h+7+r*14,on=n<lit;pxR(c,on?((Math.floor(t*2+n)%11)?'#FCE078':'#E0C060'):'#30406A',x,y,7,7);if(on)pxR(c,'#FFF4B0',x,y,7,1);n++}}
+function tyBldg(c,b,t,dead){const T=TY,x=b.x,y=b.y-b.h,w=b.w,h=b.h,col=dead?'#7A7A82':b.col;
+  pxR(c,'rgba(0,0,0,.18)',x+4,b.y-3,w+4,5);
+  pxR(c,col,x,y,w,h);pxR(c,pxShade(col,0.78),x+w-5,y,5,h);pxR(c,pxShade(col,0.62),x-2,y-8,w+4,8);pxR(c,pxShade(col,0.95),x-2,y-8,w+4,2);
+  const lit=dead?0:({mkt:T.team.mkt*2,rd:T.team.rd*3,data:T.team.data*3+1,crm:T.team.crm*3,cs:T.team.cs*2,brand:T.brand>0?4:0,shop:6,wh:0,amz:0,ret:0,fr:0,rival:6})[b.k]||0;
+  if(b.k!=='wh')tyWin(c,b,lit,t,col);
+  pxR(c,'#2A1A10',x+w/2-4,b.y-11,8,11);pxR(c,'#5A3A20',x+w/2-4,b.y-11,8,1)}
+function tyDeco(c,b,t){const T=TY,R=T.rival,x=b.x,y=b.y-b.h,w=b.w,h=b.h,fl=Math.floor(t*4)%2;
+  if(b.k==='mkt'){pxR(c,'#C0C8D8',x+w-14,y-22,1,14);pxR(c,fl?'#F04040':'#802020',x+w-15,y-24,3,2)}
+  else if(b.k==='brand'){const on=T.brand>0;pxR(c,'#3A2A30',x+4,y-24,w-8,15);pxR(c,on?'#FF78B8':'#6A5060',x+6,y-22,w-12,11);if(on)for(let i=0;i<4;i++)pxR(c,'#FFF',x+9+i*10+((Math.floor(t*3)+i)%2),y-19,5,2)}
+  else if(b.k==='rd'){const busy=T.dev&&!T.prods.includes(T.dev)&&T.team.rd>0;pxR(c,'#E8F0F8',x+w/2-5,y-16,10,8);pxR(c,busy?'#58F088':'#98B0A0',x+w/2-4,y-12,8,4);if(busy)for(let i=0;i<3;i++){const ph=(t*0.8+i/3)%1;pxR(c,'#B8FFD0',x+w/2-3+i*3,y-14-ph*12,2,2)}}
+  else if(b.k==='data'){pxR(c,'#C0C8D8',x+w/2-1,y-30,2,22);pxR(c,'#F0F4FF',x+w/2-6,y-32,12,3);pxR(c,fl?'#58D0FF':'#2A5878',x+w/2-1,y-34,2,2)}
+  else if(b.k==='crm'){const n=Math.min(6,Math.ceil(T.mails/2));for(let i=0;i<n;i++){const ph=(t*0.5+i/n)%1;pxR(c,'#F8F8F8',x+6+i*8+Math.sin(ph*6+i)*2,y-6-ph*34,5,3);pxR(c,'#C04040',x+6+i*8+Math.sin(ph*6+i)*2,y-6-ph*34,5,1)}}
+  else if(b.k==='rival'){if(R.dead){for(let p=0;p<3;p++){const ph=(t*0.5+p/3)%1;pxR(c,'#8A8A94',x+10+p*18,y-8-ph*26,4,4)}}else{pxR(c,'#E8E8E8',x+w-10,y-26,1,18);pxR(c,R.mood==='Preiskampf'?'#FF2828':R.mood==='Werbeoffensive'?'#FFB020':'#3868D0',x+w-9,y-26,8+(fl?1:0),5)}}
+  else if(b.k==='shop'){for(let i=0;i<w;i+=6){pxR(c,i%12?'#F8F0E0':'#2AA8A0',x+i,y+h-22,6,5)}pxR(c,pxShade('#2AA8A0',0.7),x,y+h-17,w,1);if(T.pr>0.3&&fl)pxR(c,'#E04040',x+w-10,y-20,6,6)}
+  else if(b.k==='cs'){pxR(c,'#2A2A38',x+w/2-8,y-12,16,6);pxR(c,'#E0E0F0',x+w/2-6,y-10,12,2)}
+  else if(b.k==='amz'){for(let i=0;i<3;i++)pxR(c,i%2?'#C08040':'#D89850',x+4+i*14,y-9,12,9)}
+  else if(b.k==='ret'){for(let i=0;i<w;i+=6)pxR(c,i%12?'#F8F0E0':'#58B050',x+i,y+h-22,6,5)}
+  else if(b.k==='fr'){pxR(c,'#E8E8E8',x+w/2,y-24,1,18);pxR(c,'#2848B8',x+w/2+1,y-24,3,5);pxR(c,'#F8F8F8',x+w/2+4,y-24,3,5);pxR(c,'#D82828',x+w/2+7,y-24,3,5)}}
+function tyLocked(c,b,t){const x=b.x,w=b.w;pxR(c,'rgba(0,0,0,.15)',x,b.y-4,w+4,5);pxR(c,'#8A6A3A',x,b.y-10,w,10);for(let i=0;i<w;i+=8)pxR(c,'#C8B070',x+i,b.y-10,4,2);
+  pxR(c,'#E8C020',x+w-10,b.y-36,2,36);pxR(c,'#E8C020',x+w-30,b.y-38,22,2);const sw=Math.round(Math.sin(t*2)*2);pxR(c,'#444',x+w-28+sw,b.y-36,1,9);pxR(c,'#E8C020',x+4,b.y-18,12,8);pxR(c,'#222',x+7,b.y-15,6,2)}
+function tyWH(c,b,t){const T=TY,x=b.x,y=b.y-b.h,w=b.w,h=b.h,col=b.col;pxR(c,'rgba(0,0,0,.18)',x+4,b.y-3,w+4,5);
+  pxR(c,col,x,y,w,h);pxR(c,pxShade(col,0.78),x+w-5,y,5,h);pxR(c,pxShade(col,0.62),x-2,y-8,w+4,8);pxR(c,pxShade(col,0.95),x-2,y-8,w+4,2);
+  const P=TYRT.proj,reach=P&&P.h.dem>0?T.stock/P.h.dem:2,empty=T.fill<1||reach<0.4;
+  for(let i=0;i<3;i++){const dx=x+6+i*30;pxR(c,'#3A3A44',dx,b.y-24,24,24);for(let r=0;r<4;r++)pxR(c,'#555566',dx+1,b.y-24+r*6,22,1);if(!empty){pxR(c,'#B8854A',dx+3,b.y-10,8,10);pxR(c,'#D8A060',dx+13,b.y-10,8,10);if(reach>1.2)pxR(c,'#B8854A',dx+7,b.y-18,9,8)}}
+  pxR(c,empty&&Math.floor(t*3)%2?'#FF3030':'#703030',x+w/2-4,y+4,8,5);
+  const cap=TYWH[T.wh],n=Math.min(18,Math.round(T.stock/cap*18));for(let i=0;i<n;i++){pxR(c,i%2?'#C8944E':'#E0AC68',x+w+6+(i%3)*8,b.y-8-Math.floor(i/3)*7,7,6)}}
+function tyPerson(c,x,y,col,f,skin){pxR(c,'#2A2A38',x+(f?0:1),y+7,1,2);pxR(c,'#2A2A38',x+(f?2:1),y+7,1,2);pxR(c,col,x,y+3,3,4);pxR(c,skin||'#F0C8A0',x,y,3,3);pxR(c,pxShade(skin||'#F0C8A0',0.6),x,y,3,1)}
+function tyVan(c,x,y,col,dir){pxR(c,col,x,y-6,12,6);pxR(c,pxShade(col,0.7),x+(dir>0?8:0),y-5,4,3);pxR(c,'#E8F0F8',x+(dir>0?9:1),y-5,2,2);pxR(c,'#222',x+2,y,3,2);pxR(c,'#222',x+8,y,3,2)}
+const TYCOL=['#E05050','#4A78C8','#58B050','#E0A030','#A060C8','#3AA8A0','#E07A9A'];
+function tyDrawWorld(c,t){const T=TY,W=TYWD.W,H=TYWD.H,R=T.rival;
+  pxR(c,'#5BA852',0,0,W,H);for(let i=0;i<140;i++){pxR(c,i%3?'#4F9A48':'#68B65E',pxHash(i)*W,pxHash(i+50)*H,3,1)}
+  pxR(c,'#6C7080',0,106,W,20);pxR(c,'#8A8EA0',0,106,W,1);pxR(c,'#8A8EA0',0,125,W,1);for(let i=0;i<W;i+=24)pxR(c,'#E8E0A0',i,116,12,1);
+  pxR(c,'#6C7080',0,258,W,20);pxR(c,'#8A8EA0',0,258,W,1);pxR(c,'#8A8EA0',0,277,W,1);for(let i=0;i<W;i+=24)pxR(c,'#E8E0A0',i,268,12,1);
+  /* Park */
+  pxR(c,'#4FA0D0',320,140,60,28);pxR(c,'#7CC8F0',324,144,26,3);pxR(c,'#7CC8F0',350+Math.round(Math.sin(t)*2),156,18,2);
+  for(let i=0;i<9;i++){const tx=24+i*48+pxHash(i+5)*14;if(tx>300&&tx<390)continue;pxR(c,'#6A4020',tx+3,158,3,9);pxR(c,'#2E8A3C',tx,146,9,12);pxR(c,'#3EA84C',tx+1,144,7,4)}
+  const nb=T.brand<=0?0:Math.min(5,1+Math.floor(T.brand/40000));for(let i=0;i<nb;i++){const bx=30+i*62;pxR(c,'#5A4A3A',bx+11,150,3,20);pxR(c,'#222',bx,134,26,16);pxR(c,i%2?'#FF78B8':'#58C8F8',bx+2,136,22,12);pxR(c,'#FFF',bx+5,141,16+((Math.floor(t*2)+i)%3),2)}
+  if(T.infl>0){pxR(c,'#7A4A8A',300,168,26,4);pxR(c,'#C8A0E8',302,160,22,8);pxR(c,Math.floor(t*4)%2?'#FFF':'#E0D0F8',308,150,3,10)}
+  /* Gebäude */
+  TYB.forEach(b=>{const locked=(b.k==='amz'&&!T.amazon)||(b.k==='ret'&&!T.retail)||(b.k==='fr'&&!T.fr);if(locked){tyLocked(c,b,t);return}if(b.k==='wh'){tyWH(c,b,t);return}const dead=b.k==='rival'&&R.dead;tyBldg(c,b,t,dead);tyDeco(c,b,t)});
+  if(TYRT.sel){const b=TYB.find(x=>x.k===TYRT.sel);if(b&&Math.floor(t*3)%2){const hh=b.k==='data'?b.h+8:b.h+8;c.strokeStyle='#FFF8B0';c.lineWidth=1;c.strokeRect(b.x-3.5,b.y-hh-0.5,b.w+7,hh+4)}}
+  /* Menschen */
+  TYW.emp.forEach(e=>tyPerson(c,e.x,e.y,e.col,Math.floor(e.x/3)%2,e.skin));
+  TYW.sp.forEach(s=>{tyPerson(c,s.x,s.y,s.col,Math.floor(s.x/3+s.y/3)%2,s.skin);if(s.st==='buy'){if(s.mood==='heart')pxHeart(c,s.x-1,s.y-8,'#F04060');else if(s.mood==='coin')pxCoin(c,s.x,s.y-8,Math.floor(t*6));else{pxR(c,'#8898B8',s.x-1,s.y-8,5,2);pxR(c,'#7FC8F8',s.x+1,s.y-5,1,2)}}});
+  TYW.van.forEach(v=>tyVan(c,v.x,v.y,v.col,v.d));
+  const cs=TYB.find(b=>b.k==='cs'),P=TYRT.proj,load=P?P.h.load:0,q=load>1?Math.min(10,Math.round((load-1)*10)+2):0;
+  for(let i=0;i<q;i++){const qx=cs.x+4+(i%6)*9,qy=cs.y+6+Math.floor(i/6)*11;tyPerson(c,qx,qy,'#D84040',i%2,'#F0C8A0');if(Math.floor(t*3+i)%3)pxR(c,'#FF3030',qx+1,qy-5,1,3),pxR(c,'#FF3030',qx+1,qy-1,1,1)}
+  TYW.fx.forEach(f=>{if(f.k==='coin')pxCoin(c,f.x,f.y,Math.floor(f.l*8))})}
+/* Welt-Simulation */
+function tySpawn(){const T=TY,P=TYRT.proj&&TYRT.proj.h;if(TYW.sp.length>70)return;
+  const w=[['shop',Math.max(0.3,P?P.revDTC:1)]];if(T.amazon)w.push(['amz',(P?P.revAmz:0)+1]);if(T.retail)w.push(['ret',(P?P.revRet:0)+1]);if(T.fr)w.push(['fr',(P?P.revDTC:0)*0.2+1]);
+  let r=Math.random()*w.reduce((a,b)=>a+b[1],0),k='shop';for(const e of w){if(r<e[1]){k=e[0];break}r-=e[1]}
+  const b=TYB.find(x=>x.k===k),short=T.fill<1&&Math.random()>T.fill,m=short?'sad':Math.random()<T.nps/90?'heart':'coin';
+  TYW.sp.push({x:-6,y:262+Math.random()*8,tx:b.x+b.w/2-1,ty:b.y+3,st:'in',t:0,col:TYCOL[(Math.random()*TYCOL.length)|0],skin:Math.random()<0.5?'#F0C8A0':'#C89870',mood:m,k});
+  const wh=TYB.find(x=>x.k==='wh');if(!short&&T.stock>0&&Math.random()<0.3&&TYW.van.length<8)TYW.van.push({x:wh.x+wh.w/2,y:272,d:1,col:'#F4F4F4'})}
+function tyWorldStep(dt){const T=TY,S=TYRT.speed;if(!S||T.done)return;const k=dt*(0.7+0.3*Math.sqrt(S));TYW.t+=k;
+  TYW.acc+=dt*TYW.rate*Math.sqrt(S);while(TYW.acc>=1){TYW.acc-=1;tySpawn()}
+  TYW.sp.forEach(s=>{const sp=34*k;
+    if(s.st==='in'){s.x+=sp;if(s.x>=s.tx){s.x=s.tx;s.st='up'}}
+    else if(s.st==='up'){s.y-=sp;if(s.y<=s.ty){s.y=s.ty;s.st='buy';s.t=0}}
+    else if(s.st==='buy'){s.t+=k;if(s.t>0.9){s.st='down';if(s.mood!=='sad'&&TYW.fx.length<20)TYW.fx.push({k:'coin',x:s.x,y:s.y-8,l:0})}}
+    else if(s.st==='down'){s.y+=sp;if(s.y>=264){s.st='out'}}
+    else{s.x+=sp}});
+  TYW.sp=TYW.sp.filter(s=>s.x<TYWD.W+8);
+  TYW.van.forEach(v=>{v.x+=40*k*v.d});TYW.van=TYW.van.filter(v=>v.x<TYWD.W+14&&v.x>-16);
+  TYW.fx.forEach(f=>{f.l+=k;f.y-=14*k});TYW.fx=TYW.fx.filter(f=>f.l<0.9);
+  const heads=Math.min(14,Object.values(T.team).reduce((a,b)=>a+b,0)),dr=TYB.filter(b=>b.y<110);
+  while(TYW.emp.length<heads){const b=dr[(Math.random()*dr.length)|0];TYW.emp.push({x:b.x+b.w/2,y:112+Math.random()*6,tx:b.x+b.w/2,wait:Math.random()*2,col:TYCOL[(Math.random()*TYCOL.length)|0],skin:Math.random()<0.5?'#F0C8A0':'#C89870'})}
+  while(TYW.emp.length>heads)TYW.emp.pop();
+  TYW.emp.forEach(e=>{if(Math.abs(e.x-e.tx)<1){e.wait-=k;if(e.wait<=0){const b=dr[(Math.random()*dr.length)|0];e.tx=b.x+b.w/2+(Math.random()*10-5);e.wait=1+Math.random()*3}}else e.x+=Math.sign(e.tx-e.x)*16*k})}
+function tyWorldDraw(){const cv=$('#tyWorld');if(!cv)return;const c=cv.getContext('2d');c.imageSmoothingEnabled=false;try{tyDrawWorld(c,TYW.t)}catch(e){console.error(e)}TYW.dirty=false}
+/* Info-Karten (Lernen vor Spielen) */
+const TYINFO={
+ mkt:{t:'Marketing-Büro',p:'Hier werden Performance-Kampagnen (Meta, Google) gesteuert. Eine Person kann etwa 60.000 € Budget wirksam managen. Mehr Budget ohne mehr Köpfe wird ineffizient, und jede zusätzliche Kampagne trifft weniger dankbare Zielgruppen, deshalb steigen die Kosten pro Neukundin mit dem Budget.',rows:[['Marketing-Köpfe','tmkt'],['Performance-Budget','perf'],['Influencer-Budget','infl'],['Kosten pro bezahlter Neukundin','cac'],['Neukund:innen pro Monat','newc']]},
+ brand:{t:'Marken-Studio und Plakate',p:'Marke wirkt langsam, aber auf alle Kanäle: Bekanntheit macht Klicks billiger, bringt Empfehlungen und ist Voraussetzung für die Drogerie-Listung. Die Wirkung klingt pro Monat um rund 40 % ab: Wer aufhört, verliert sie wieder. Jedes Plakat im Park steht für etwa 40.000 € Markenbudget.',rows:[['Markenbekanntheit','aw'],['Markenbudget pro Monat','brand'],['Zufriedenheit','nps']]},
+ rd:{t:'Produkt-Labor',p:'Neue Produkte erhöhen Warenkorb, Kaufhäufigkeit und Bindung. Die Entwicklung braucht Personentage: Jede Person im Labor schafft etwa 20 pro Monat. Mehr Köpfe verkürzen die Wartezeit, kosten aber 5.000 € pro Monat.',rows:[['Produkt-Köpfe','trd'],['In Entwicklung','dev'],['Wiederkaufquote pro Monat','ret']]},
+ data:{t:'Daten-Turm',p:'Analytics sorgt für saubere Daten: Plattform-Algorithmen bieten besser, du erkennst Verschwendung früher. Der Effekt ist nach zwei Köpfen weitgehend ausgereizt. Mit der Conversions API als Basis wird jeder Datenmensch wertvoller.',rows:[['Analytics-Köpfe','tdata'],['Kosten pro bezahlter Neukundin','cac'],['Kundenwert : Akquisekosten','ltv']]},
+ crm:{t:'CRM-Studio',p:'Hier entstehen E-Mails und Abo-Pflege. Ein CRM-Kopf betreut bis zu 15.000 aktive Kund:innen. Mehr Mails bringen mehr Wiederkäufe, ab etwa 9 pro Monat nerven sie und kosten Zufriedenheit. Die Umschläge über dem Dach sind deine Mails.',rows:[['CRM-Köpfe','tcrm'],['Mails pro Monat','mails'],['Bindung pro Monat','ret'],['Aktive Kund:innen','act']]},
+ shop:{t:'Online-Shop',p:'Dein Direktkanal. Hier entscheidet der Preis: Höher bedeutet mehr Marge pro Paket, aber weniger Neukund:innen. Schlechte Rezensionen und PR-Schäden bremsen die Conversion, die Kund:innen mit Herzen zeigen gute Stimmung, mit Wolken wurden sie enttäuscht.',rows:[['Preis pro Paket','price'],['Bestellungen im Monat','orders'],['Umsatz laufender Monat','rev'],['Zufriedenheit','nps']]},
+ wh:{t:'Lager',p:'Ware ist gebundenes Geld. Du bestellst automatisch auf Basis der Nachfrage, die Lieferung kommt einen Monat später. Zu wenig Bestand verliert Verkäufe und verärgert Kund:innen, zu viel bindet Cash und kostet Lagergebühr. Die Kisten vor dem Haus zeigen den Füllstand, rotes Licht heißt: leer.',rows:[['Bestand (Stück)','stock'],['Unterwegs','inb'],['Reichweite','reach'],['Kapazität','cap'],['Kapitalbindung','tied'],['Erfüllungsquote','fill'],['Verlorene Bestellungen insgesamt','lost']]},
+ cs:{t:'Service-Center',p:'Jeder Kundenservice-Kopf schafft rund 900 Anfragen pro Monat. Bei Überlast sinkt die Zufriedenheit und damit Bindung und Empfehlungen. Die roten Figuren vor der Tür sind wartende Kund:innen.',rows:[['Service-Köpfe','tcs'],['Anfragen im Monat','ticket'],['Kapazität','ccap'],['Auslastung','load'],['Zufriedenheit','nps']]},
+ amz:{t:'Amazon-Hub',p:'Marktplätze bringen Volumen, aber Gebühren (15 %) und sie nehmen dem eigenen Shop Neukund:innen weg. Kosten: 10.000 € einmalig, 1.500 € pro Monat.',rows:[['Status','c_amz'],['Bestellungen im Monat','orders']]},
+ ret:{t:'Drogerie-Listung',p:'Der Handel listet erst ab 12 % Markenbekanntheit. Er nimmt 45 % Marge, bringt aber Volumen und Sichtbarkeit am Regal. Kosten: 40.000 € einmalig, 3.000 € pro Monat.',rows:[['Status','c_ret'],['Markenbekanntheit','aw']]},
+ fr:{t:'Expansion Frankreich',p:'Ein neuer Markt vergrößert die Zielgruppe um 60 %, startet aber bei null Bekanntheit. Ab Monat 13 möglich, 120.000 € einmalig, 6.000 € pro Monat.',rows:[['Status','c_fr'],['Markenbekanntheit','aw']]},
+ rival:{t:'Dentara (Konkurrenz)',p:'Dentara beobachtet dich. Wirst du größer und liegst nicht deutlich über seinem Preis, senkt er ihn und greift an. Ein Preiskampf drückt beide Seiten, aber die Marke mit mehr Bekanntheit und Zufriedenheit hält länger durch. Wer das Geld verbrennt, scheidet aus.',rows:[['Strategie','rmood'],['Preis','rprice'],['Bekanntheit','raw'],['Kasse (geschätzt)','rcash'],['Dein Preis','price']]}};
+function tyInfoHtml(k){const d=TYINFO[k];if(!d)return`<p class="note">Klicke auf ein Gebäude, um zu sehen, was dort passiert und welche Kennzahlen es beeinflusst. Die Zeit läuft, sobald du auf 1× drückst. Du kannst jederzeit pausieren und umbauen.</p>`;
+  return `<div class="eyebrow">Gebäude</div><b class="tyi-t">${esc(d.t)}</b><p>${d.p}</p><div class="irows">${d.rows.map(([l,key])=>`<div class="irow"><span>${l}</span><b data-tyv="${key}"></b></div>`).join('')}</div><div class="row" style="margin-top:8px"><button class="btn sm" data-tysel-tab="${(TYB.find(b=>b.k===k)||{}).tab||'mkt'}">Regler dazu öffnen</button></div>`}
+/* Oberfläche */
+function tyTopHtml(){const T=TY;
+  return `<div class="tytime"><div class="seg" id="tySpd" role="group" aria-label="Spielgeschwindigkeit">${[[0,'Pause'],[1,'1×'],[2,'2×'],[4,'4×']].map(([s,n])=>`<button data-tyspd="${s}" class="${TYRT.speed===s?'on':''}" ${T.done||T.dec?'disabled':''}>${n}</button>`).join('')}</div>
+   <div class="tyday"><div class="bar"><i id="tyDayBar" style="width:${T.day/30*100}%"></i></div><span class="note" id="tyDayTxt">${tyM(T.m)} · Tag ${Math.min(30,Math.floor(T.day)+1)} von 30</span></div>
+   ${T.done?'':`<button class="btn sm" id="tyGo">Monat sofort abschließen</button>`}</div>
+  ${T.dec!=null?tyDecHtml():''}
+  <div class="tyscene" id="tyScene"><canvas id="tyWorld" class="tyworld" width="${TYWD.W}" height="${TYWD.H}" aria-hidden="true"></canvas>${TYB.map(b=>`<button class="tyhot" data-tyhot="${b.k}" data-tyst="${b.k}" aria-label="${esc(b.n)}" style="left:${b.x/TYWD.W*100}%;top:${(b.y-b.h-8)/TYWD.H*100}%;width:${b.w/TYWD.W*100}%;height:${(b.h+8)/TYWD.H*100}%"><span class="tychip"><small>${esc(b.n)}</small><b data-tyv="c_${b.k}"></b></span></button>`).join('')}</div>
+  <div class="panel tyinfo" id="tyInfo" style="margin-top:10px">${tyInfoHtml(TYRT.sel)}</div>`}
+function tyDecHtml(){const inc=TYINC.find(i=>i.m===TY.dec);if(!inc)return'';
+  return `<div class="panel stack tydec" role="alertdialog" aria-label="Entscheidung nötig"><div class="eyebrow">Entscheidung nötig · Die Zeit steht still</div><b class="tyi-t">${esc(inc.t)}</b><p>${esc(inc.txt)}</p><div class="stack" style="gap:8px">${inc.ch.map((c,i)=>`<button class="btn" data-tychoice="${i}"><b>${esc(c.l)}</b><span class="note">${esc(c.d)}</span></button>`).join('')}</div></div>`}
+function tyKpiHtml(){const T=TY,hh=T.hist[T.hist.length-1];
+  return `<section class="dash"><div class="kpis">
+    <div class="kpi"><div class="k">Kasse</div><div class="v" id="tkCash" data-tyv="cash"></div></div>
+    <div class="kpi"><div class="k">Umsatz Monat</div><div class="v" data-tyv="rev"></div></div>
+    <div class="kpi"><div class="k">Gewinn Monat</div><div class="v" id="tkProfit" data-tyv="profit"></div></div>
+    <div class="kpi"><div class="k">Aktive Kund:innen</div><div class="v" data-tyv="act"></div></div>
+    <div class="kpi"><div class="k">Unternehmenswert</div><div class="v" data-tyv="val"></div></div>
+    <div class="kpi"><div class="k">Dein Anteil</div><div class="v" data-tyv="own"></div></div></div>
+   <div class="rings">${chRing(T.aw/0.4,'Markenbekanntheit',pct(T.aw,1),'var(--accent)')}${chRing(T.nps/80,'Zufriedenheit',Math.round(T.nps),'var(--good)')}${chRing(hh&&hh.cacB?hh.ltv/hh.cacB/5:0,'Kundenwert : CAC',hh&&hh.cacB?de(hh.ltv/hh.cacB,1):'–','var(--data)')}${chRing(hh?clamp(hh.r-0.75,0,0.2)/0.2:0,'Bindung pro Monat',hh?pct(hh.r,1):'–','var(--c1)')}${chRing(hh?clamp(hh.fill,0,1):1,'Lieferfähigkeit',hh?pct(hh.fill,0):'100 %','var(--c6)')}</div></section>`}
+function tyChartsHtml(){const T=TY,H=T.hist;if(!H.length)return'';
+  return `<div class="grid2" style="margin-top:14px"><div class="panel"><div class="row" style="justify-content:space-between"><b>Umsatz nach Kanal</b><div class="legend"><span><span class="sw" style="background:var(--accent)"></span>Shop</span><span><span class="sw" style="background:var(--c1)"></span>Amazon</span><span><span class="sw" style="background:var(--c6)"></span>Handel</span></div></div>
       ${chStack([{c:'var(--accent)',v:H.map(x=>x.revDTC)},{c:'var(--c1)',v:H.map(x=>x.revAmz)},{c:'var(--c6)',v:H.map(x=>x.revRet)}],{xfmt:tyM,yfmt:keur,label:'Umsatz nach Kanal'})}</div>
      <div class="panel"><b>Kasse und Monatsgewinn</b>${lineChart({series:[{color:'var(--c1)',pts:H.map((x,i)=>[i+1,x.cash]),area:true},{color:'var(--accent)',pts:H.map((x,i)=>[i+1,x.profit])}],xmax:Math.max(6,H.length),ymax:Math.max(...H.map(x=>x.cash),...H.map(x=>x.profit))*1.1,ymin:Math.min(0,...H.map(x=>x.profit),...H.map(x=>x.cash))*1.1,xfmt:v=>v?'M'+v:'',yfmt:keur,h:230})}<div class="legend"><span><span class="sw" style="background:var(--c1)"></span>Kasse</span><span><span class="sw" style="background:var(--accent)"></span>Gewinn pro Monat</span></div></div></div>
     <div class="grid2" style="margin-top:14px"><div class="panel"><b>Kohorten: Wer kauft noch?</b><p class="note">Jede Zeile ist ein Monatsjahrgang an Neukund:innen, jede Spalte die Monate danach. Die Zahl ist der Anteil, der noch aktiv ist.</p>
       ${(()=>{const cs=T.coh.slice(-10);return chHeat(cs.map(c=>tyM(c.m)),Array.from({length:10},(_,j)=>'+'+j),(i,j)=>{const c=cs[i];if(!c.n||!c.h||c.h[j]==null)return null;return c.h[j]/c.n},v=>Math.round(v*100))})()}</div>
-     <div class="panel"><b>Marktdurchdringung</b><p class="note">Anteil der Haushalte mit Fjord-Abo, nach Region.</p>${tyMap(T)}</div></div>`}
-  h+=tyCoach();
-  if(!T.done){const ev=TYEV[T.m];
-    if(ev)h+=`<div class="event" style="margin-top:14px"><div><b>Nächster Monat · ${esc(ev.t)}.</b> ${esc(ev.txt)}</div></div>`;
-    if(T.vcOffer)h+=`<div class="panel stack" style="margin-top:14px;border-color:var(--accent)"><b>Angebot eines VC-Fonds</b><p>1,5 Mio. € frisches Kapital bei einer Bewertung von ${eur(T.vcOffer.pre)} vor dem Investment. Dein Anteil sinkt von ${pct(T.own,0)} auf ${pct(T.own*T.vcOffer.pre/(T.vcOffer.pre+1500000),0)}. Mehr Kapital erlaubt schnelleres Wachstum, kostet aber Anteile.</p><div class="row"><button class="btn primary" id="tyVcYes">Annehmen</button><button class="btn" id="tyVcNo">Ablehnen</button></div></div>`;
-    h+=`<section class="panel stack" style="margin-top:14px"><div class="seg" role="tablist">${[['mkt','Marketing'],['team','Team & Produkt'],['grow','Wachstum & Geld']].map(([k,n])=>`<button data-tytab="${k}" class="${TYTAB===k?'on':''}">${n}</button>`).join('')}</div>${tyPanel()}</section>
-     <div class="row" style="margin-top:14px"><button class="btn primary" id="tyGo">${tyM(T.m)} abschließen</button><button class="btn" id="tyGo3">3 Monate vorspulen</button></div>`}
-  else{const sc=tyScore(T),tier=T.dead?'Insolvenz':sc<3e6?'Kleines Lifestyle-Business':sc<15e6?'Solides Unternehmen':sc<50e6?'Scale-up':'Kategorie-Champion';
-    h+=`<div class="panel stack" style="margin-top:14px"><div class="eyebrow">Ergebnis nach ${T.m} Monaten</div><div style="font-family:var(--f-display);font-size:40px;font-weight:800">${esc(tier)}</div><p class="lead">${T.dead?'Das Geld ist ausgegangen. Wachstum, das schneller Cash verbrennt, als Kund:innen zurückzahlen, ist der häufigste Tod junger Marken. Schau dir Amortisation und Reichweite des Geldes im Verlauf an.':`Dein Anteil am Unternehmenswert: <b>${eur(sc)}</b> (${pct(T.own,0)} von ${eur(T.hist[T.hist.length-1].val)}).`}</p>
-      <div class="row"><button class="btn primary" id="tyNewGame">Neues Spiel in diesem Spielstand</button><button class="btn" data-go="mentor">Mit dem Mentor besprechen</button></div></div>`}
-  h+=`<div class="panel" style="margin-top:14px"><b>Chronik</b><div class="feed" style="margin-top:8px">${T.news.slice(-8).reverse().map(n=>`<div class="t"><b>${tyM(n.m)} · ${esc(n.t)}</b>${esc(n.txt)}</div>`).join('')}</div></div>`;
-  $('#view').innerHTML=h;bindGo();tyBind()}
+     <div class="panel"><b>Marktdurchdringung</b><p class="note">Anteil der Haushalte mit Fjord-Abo, nach Region.</p>${tyMap(T)}</div></div>
+    <div class="grid2" style="margin-top:14px"><div class="panel"><b>Lager: Bestand gegen Nachfrage</b><p class="note">Die Linie ist der Bestand zu Monatsende, die Fläche die Nachfrage. Liegt der Bestand dauerhaft weit darüber, ist Geld gebunden. Berührt er die Null, entgehen dir Verkäufe.</p>${lineChart({series:[{color:'var(--c6)',pts:H.map((x,i)=>[i+1,x.dem||0]),area:true},{color:'var(--accent)',pts:H.map((x,i)=>[i+1,x.stock||0])}],xmax:Math.max(6,H.length),ymax:Math.max(...H.map(x=>x.dem||0),...H.map(x=>x.stock||0),100)*1.1,ymin:0,xfmt:v=>v?'M'+v:'',yfmt:v=>de(v/1000,0)+'k',h:200})}<div class="legend"><span><span class="sw" style="background:var(--c6)"></span>Nachfrage (Stück)</span><span><span class="sw" style="background:var(--accent)"></span>Bestand</span></div></div>
+     <div class="panel"><b>Konkurrenz: Dentara</b><p class="note">${T.rival.dead?'Dentara ist ausgeschieden.':'Strategie: <b>'+esc(T.rival.mood)+'</b>. Preis '+eur(T.rival.price)+' gegen deinen '+eur(T.price)+'. Das Geld des Rivalen: '+eur(T.rival.cash)+'.'}</p>${T.rival.dead?'':`<div class="bar"><i style="width:${clamp(T.rival.cash/600000,0,1)*100}%"></i></div><p class="note" style="margin-top:6px">Balken: Dentaras Kasse (Ziel: durchhalten, bis ihm das Geld ausgeht).</p>`}</div></div>`}
+function tyPanelHtml(){return `<section class="panel stack" style="margin-top:14px" id="tyPanelSec"><div class="seg" role="tablist">${[['mkt','Marketing'],['team','Team & Produkt'],['stock','Lager & Lieferkette'],['grow','Wachstum & Geld'],['rival','Konkurrenz']].map(([k,n])=>`<button data-tytab="${k}" class="${TYTAB===k?'on':''}">${n}</button>`).join('')}</div><div id="tyPanelBody">${tyPanel()}</div></section>`}
+function tyChronHtml(){const T=TY;return `${T.lastLearn?`<div class="event" style="margin-top:14px"><div><b>Was du daraus lernst · ${esc(T.lastLearn.t)}.</b> ${esc(T.lastLearn.txt)}</div></div>`:''}<div class="panel" style="margin-top:14px"><b>Chronik</b><div class="feed" style="margin-top:8px">${T.news.slice(-8).reverse().map(n=>`<div class="t"><b>${tyM(n.m)} · ${esc(n.t)}</b>${esc(n.txt)}</div>`).join('')}</div></div>`}
+function tyEndHtml(){const T=TY,sc=tyScore(T),tier=T.dead?'Insolvenz':T.sold?'Erfolgreicher Exit':sc<3e6?'Kleines Lifestyle-Business':sc<15e6?'Solides Unternehmen':sc<50e6?'Scale-up':'Kategorie-Champion';
+  return `<div class="panel stack" style="margin-top:14px"><div class="eyebrow">Ergebnis nach ${T.m} Monaten</div><div style="font-family:var(--f-display);font-size:40px;font-weight:800">${esc(tier)}</div><p class="lead">${T.dead?'Das Geld ist ausgegangen. Wachstum, das schneller Cash verbrennt, als Kund:innen zurückzahlen, ist der häufigste Tod junger Marken. Schau dir Amortisation, Lagerbestand und Reichweite des Geldes im Verlauf an.':T.sold?`Du hast Fjord für <b>${eur(T.saleVal)}</b> verkauft. Dein Anteil: <b>${eur(sc)}</b> (${pct(T.own,0)}).`:`Dein Anteil am Unternehmenswert: <b>${eur(sc)}</b> (${pct(T.own,0)} von ${eur(T.hist[T.hist.length-1].val)}).`}</p>
+   <div class="row"><button class="btn primary" id="tyNewGame">Neues Spiel in diesem Spielstand</button><button class="btn" data-go="mentor">Mit dem Mentor besprechen</button></div></div>`}
+function tyStartHtml(){return `<p class="lead">Du gründest <b>Fjord</b>, eine nachhaltige Zahnpflege-Marke, die direkt an Kund:innen verkauft. Du baust sichtbar eine Firma: Marketing, Labor, Lager, Service, Kanäle. Die Zeit läuft in Echtzeit, du kannst jederzeit pausieren und umbauen. Dazu kommen ein Konkurrent, der auf dich reagiert, ein Lager, das Geld bindet, und Entscheidungen, die das Spiel anhalten. 36 Monate, 450.000 € Startkapital. Am Ende zählt dein Anteil am Unternehmenswert.</p>
+   <div class="slotgrid">${[1,2,3].map(k=>{const S=TYS[k],hh=S&&S.hist[S.hist.length-1];return `<div class="slot"><div class="eyebrow">Spielstand ${k}</div>${S?`<b>${S.done?(S.dead?'Insolvent':S.sold?'Verkauft':'Beendet'):tyM(S.m)+' von 36'}</b><span class="note">Kasse ${eur(S.cash)} · Wert ${hh?eur(hh.val*S.own):'–'}</span><div class="row" style="gap:6px"><button class="btn sm primary" data-tyload="${k}">${S.done?'Ansehen':'Fortsetzen'}</button><button class="btn sm ghost" data-tynew="${k}">Neu</button></div>`:`<span class="note">Leer</span><button class="btn sm primary" data-tynew="${k}">Neues Spiel</button>`}</div>`}).join('')}</div>
+   <p class="note" style="margin-top:10px">Jeder Monat wird automatisch gespeichert.</p>`}
+function viewTycoon(){
+  if(TY)tyFix(TY);
+  let h=`${backBtn}<div class="ghead"><div><div class="eyebrow">Wirtschaftssimulation · 36 Monate · Echtzeit</div><h2>Markenimperium</h2></div>${TY?`<div class="row"><span class="xp-pill">Spielstand ${TY.slot} · ${TY.done?'Beendet':tyM(TY.m)+' / 36'}</span><button class="btn sm ghost" id="tySlots">Spielstände</button></div>`:''}</div>`;
+  if(!TY){tyStop();$('#view').innerHTML=h+tyStartHtml();bindGo();
+    $$('[data-tyload]').forEach(b=>b.onclick=()=>{TY=TYS[+b.dataset.tyload];tyFix(TY);TYRT.speed=0;TYRT.dirty=true;TYRT.sel=null;viewTycoon()});
+    $$('[data-tynew]').forEach(b=>b.onclick=()=>{const k=+b.dataset.tynew;if(TYS[k]&&b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Überschreiben?';b.classList.add('primary');return}TYS[k]=tyNew(k);TY=TYS[k];TYRT.speed=0;TYRT.dirty=true;TYRT.sel=null;TYW.sp=[];TYW.van=[];TYW.emp=[];svSchedule();viewTycoon()});return}
+  const T=TY;if(TYRT.dirty||!TYRT.proj)tyProj();
+  h+=`<div id="tyTop">${tyTopHtml()}</div><div id="tyKpi">${tyKpiHtml()}</div><div id="tyCharts">${tyChartsHtml()}</div><div id="tyCoachBox">${tyCoach()}</div>`;
+  if(!T.done){const ev=TYEV[T.m];h+=`<div id="tyEv">${ev?`<div class="event" style="margin-top:14px"><div><b>Nächster Monat · ${esc(ev.t)}.</b> ${esc(ev.txt)}</div></div>`:''}${T.vcOffer?tyVcHtml():''}</div>${tyPanelHtml()}`}
+  else h+=tyEndHtml();
+  h+=`<div id="tyChron">${tyChronHtml()}</div>`;
+  $('#view').innerHTML=h;bindGo();tyBind();tyLiveText();tyWorldDraw();tyStart()}
+function tyVcHtml(){const T=TY;return `<div class="panel stack" style="margin-top:14px;border-color:var(--accent)"><b>Angebot eines VC-Fonds</b><p>1,5 Mio. € frisches Kapital bei einer Bewertung von ${eur(T.vcOffer.pre)} vor dem Investment. Dein Anteil sinkt von ${pct(T.own,0)} auf ${pct(T.own*T.vcOffer.pre/(T.vcOffer.pre+1500000),0)}. Mehr Kapital erlaubt schnelleres Wachstum, kostet aber Anteile.</p><div class="row"><button class="btn primary" id="tyVcYes">Annehmen</button><button class="btn" id="tyVcNo">Ablehnen</button></div></div>`}
 function tyPanel(){const T=TY,tm=T.team;const sl=(id,lab,v,min,max,st,fmt,hint)=>`<label class="fld" for="${id}">${lab}: <span class="num" id="${id}V">${fmt(v)}</span>${hint?`<small>${hint}</small>`:''}<input type="range" id="${id}" min="${min}" max="${max}" step="${st}" value="${v}"></label>`;
   const tg=(id,lab,on,hint,dis)=>`<label class="ropt"><input type="checkbox" id="${id}" ${on?'checked':''} ${dis?'disabled':''}><span><b>${lab}</b><small>${hint}</small></span></label>`;
-  if(TYTAB==='mkt')return `<div class="grid2">${sl('tyPerf','Performance (Meta, Google)',T.perf,0,150000,1000,eur,'Bringt sofort Neukund:innen, wird mit steigendem Budget teurer.')}${sl('tyBrand','Marke (Video, Podcast, Plakat)',T.brand,0,200000,5000,eur,'Baut langsam Bekanntheit auf, die alle Kanäle günstiger macht.')}${sl('tyInfl','Influencer',T.infl,0,60000,1000,eur,'Mischung aus Neukund:innen und Bekanntheit.')}${sl('tyPrice','Preis pro Paket',T.price,16,34,1,eur,'Höherer Preis: mehr Marge, weniger Neukund:innen.')}${sl('tyMails','CRM-Mails pro Monat',T.mails,0,12,1,v=>v,'Mehr Wiederkäufe, ab 9 nervt es.')}</div>
+  if(TYTAB==='mkt')return `<div class="grid2">${sl('tyPerf','Performance (Meta, Google)',T.perf,0,150000,1000,eur,'Bringt sofort Neukund:innen, wird mit steigendem Budget teurer.')}${sl('tyBrand','Marke (Video, Podcast, Plakat)',T.brand,0,200000,5000,eur,'Baut langsam Bekanntheit auf, die alle Kanäle günstiger macht.')}${sl('tyInfl','Influencer',T.infl,0,60000,1000,eur,'Mischung aus Neukund:innen und Bekanntheit.')}${sl('tyPrice','Preis pro Paket',T.price,16,34,1,eur,'Höherer Preis: mehr Marge, weniger Neukund:innen. Dentara reagiert auf deinen Preis.')}${sl('tyMails','CRM-Mails pro Monat',T.mails,0,12,1,v=>v,'Mehr Wiederkäufe, ab 9 nervt es.')}</div>
    <div class="ropts">${tg('tyDisc','Rabattaktion −20 % diesen Monat',T.discount,'Mehr Neukund:innen sofort, schlechtere Bindung und Rabatt-Gewöhnung.')}${tg('tyCapi','Conversions API (800 € pro Monat)',T.capi,'Saubere Kaufsignale für Meta und Google, wichtig ab dem Tracking-Update.')}</div>`;
   if(TYTAB==='team')return `<div class="teamgrid">${Object.entries(TYROLE).map(([k,r])=>`<div class="trole"><div><b>${r.n}</b><div class="note">${r.d}</div></div><div class="people">${Array.from({length:tm[k]},()=>'<i></i>').join('')}${Array.from({length:T.pend[k]},()=>'<i class="pend"></i>').join('')}</div><div class="row" style="gap:6px"><button class="btn sm" data-tyfire="${k}" ${tm[k]?'':'disabled'}>−</button><span class="num">${tm[k]}${T.pend[k]?' +'+T.pend[k]:''}</span><button class="btn sm" data-tyhire="${k}">+</button></div></div>`).join('')}</div>
    <p class="note">Neue Leute starten nächsten Monat und kosten je 5.000 € pro Monat. Kündigen kostet einmalig ein Monatsgehalt.</p>
@@ -2803,18 +3017,64 @@ function tyPanel(){const T=TY,tm=T.team;const sl=(id,lab,v,min,max,st,fmt,hint)=
     <div class="chips">${Object.entries(TYPROD).map(([k,p])=>`<span class="chip" style="cursor:default">${T.prods.includes(k)?'✓ ':''}${esc(p.n)}</span>`).join('')}</div>
     ${Object.keys(TYPROD).filter(k=>!T.prods.includes(k)).length>1?`<label class="fld" for="tyDev">Als Nächstes entwickeln<select id="tyDev">${Object.keys(TYPROD).filter(k=>!T.prods.includes(k)).map(k=>`<option value="${k}" ${T.dev===k?'selected':''}>${esc(TYPROD[k].n)} · ${TYPROD[k].dev} Personentage</option>`).join('')}</select></label>`:''}</div>
    <div class="stack" style="gap:8px"><b>KI-Werkzeuge</b><div class="ropts">${tg('tyAiCs','KI-Service-Chatbot (2.000 € pro Monat)',T.aiCs,'Beantwortet Standardfragen: +40 % Service-Kapazität, aber etwas unpersönlicher.')}${tg('tyAiCt','KI-Content-Werkzeuge (1.500 € pro Monat)',T.aiContent,'Mehr Creatives und Content mit gleichem Team: günstigere Akquise, mehr organische Reichweite.')}</div></div>`;
+  if(TYTAB==='stock'){const nx=TYWH[T.wh+1],up=T.wh<2?[60000,120000][T.wh]:0;
+    return `<p class="note">Du bestellst automatisch, sobald der Bestand unter deine Zielreichweite fällt. Ware kommt einen Monat später und wird sofort bezahlt. Das ist Working Capital: Geld, das im Regal liegt, fehlt dir für Marketing.</p>
+    <div class="grid2">${sl('tySafe','Sicherheitsbestand (Monate Reichweite)',T.safety,1,3,0.1,v=>de(v,1),'Niedrig: wenig Kapitalbindung, aber Leerstand bei Nachfragespitzen. Hoch: sicher, aber teuer und platzraubend.')}</div>
+    <div class="ropts"><div class="ropt"><span><b>Lager erweitern</b><small>${T.wh<2?`Kapazität ${de(TYWH[T.wh])} → ${de(nx)} Stück. Einmalig ${eur(up)}, danach +2.500 € Miete pro Monat. Eine volle Halle stoppt den Nachschub.`:'Maximale Ausbaustufe erreicht.'}</small><button class="btn sm" id="tyWh" ${T.wh>=2||T.cash<up+30000?'disabled':''}>Erweitern</button></span></div>
+    <div class="ropt"><span><b>Zweitlieferant</b><small>${T.supp2?'Aktiv: 4 % günstiger einkaufen, keine Lieferverzögerungen mehr.':'Einmalig 15.000 €. Senkt den Einkaufspreis um 4 % und schützt vor Lieferausfällen.'}</small>${T.supp2?'':'<button class="btn sm" id="tySupp" '+(T.cash<45000?'disabled':'')+'>Aufbauen</button>'}</span></div></div>
+    <p class="note">Lager aktuell: <b data-tyv="stock"></b> Stück, <b data-tyv="inb"></b> unterwegs, Reichweite <b data-tyv="reach"></b>. Lagergebühr laufend: <b data-tyv="hold"></b>.</p>`}
+  if(TYTAB==='rival'){const R=T.rival,ok=!R.dead&&T.cash>=30000&&(T.atkM==null||T.m-T.atkM>=6);
+    return `<p class="note">Dentara ist ein etablierter Konkurrent. Er reagiert auf dich: Er geht bei deinem Preis mit, wenn du größer wirst, und erhöht Werbung, wenn du in Bekanntheit aufholst. Ein Preiskampf kostet beide Seiten, am Ende gewinnt, wer mehr Bekanntheit, Zufriedenheit und Geld hat.</p>
+    <div class="irows"><div class="irow"><span>Strategie</span><b data-tyv="rmood"></b></div><div class="irow"><span>Dentaras Preis</span><b data-tyv="rprice"></b></div><div class="irow"><span>Dein Preis</span><b data-tyv="price"></b></div><div class="irow"><span>Bekanntheit Dentara</span><b data-tyv="raw"></b></div><div class="irow"><span>Deine Bekanntheit</span><b data-tyv="aw"></b></div><div class="irow"><span>Kasse Dentara (geschätzt)</span><b data-tyv="rcash"></b></div></div>
+    <div class="ropts"><div class="ropt"><span><b>Vergleichskampagne starten</b><small>20.000 €. Senkt Dentaras Bekanntheit um 25 %, kostet etwas Zufriedenheit, höchstens alle 6 Monate.</small><button class="btn sm" id="tyAtk" ${ok?'':'disabled'}>Starten</button></span></div></div>`}
   return `<div class="ropts">
    <div class="ropt"><span><b>Drogerie-Listung</b><small>${T.retail?'Gelistet. Bringt Volumen mit 45 % Händlermarge und etwas Bekanntheit.':'Einmalig 40.000 €, dann 3.000 € pro Monat. Der Handel listet erst ab 12 % Markenbekanntheit (du: '+pct(T.aw,1)+').'}</small>${T.retail?'':`<button class="btn sm" id="tyRetail" ${T.aw<0.12?'disabled':''}>Listung starten</button>`}</span></div>
    <div class="ropt"><span><b>Amazon</b><small>${T.amazon?'Aktiv. Mehr Volumen, 15 % Gebühren, nimmt dem eigenen Shop Neukund:innen weg.':'Einmalig 10.000 €, dann 1.500 € pro Monat. Zusätzliche Bestellungen, aber Gebühren und Kannibalisierung.'}</small>${T.amazon?'':'<button class="btn sm" id="tyAmz">Starten</button>'}</span></div>
    <div class="ropt"><span><b>Expansion Frankreich</b><small>${T.fr?'Aktiv seit '+tyM(T.frM)+'. Der Markt ist 60 % größer.':'Ab Monat 13. Einmalig 120.000 €, dann 6.000 € pro Monat. Vergrößert den Markt um 60 %.'}</small>${T.fr?'':`<button class="btn sm" id="tyFr" ${T.m<12?'disabled':''}>Expandieren</button>`}</span></div>
    <div class="ropt"><span><b>Bankkredit</b><small>Schulden: ${eur(T.debt)} zu 8 % pro Jahr. Maximal 300.000 €.</small><span class="row" style="gap:6px"><button class="btn sm" id="tyLoan" ${T.debt>=300000?'disabled':''}>+100.000 €</button><button class="btn sm ghost" id="tyRepay" ${T.debt<=0||T.cash<50000?'disabled':''}>50.000 € tilgen</button></span></span></div></div>`}
-function tyBind(){const T=TY;const sb=$('#tySlots');if(sb)sb.onclick=()=>{TY=null;viewTycoon()};
-  if(!T)return;const ng=$('#tyNewGame');if(ng)ng.onclick=()=>{TYS[T.slot]=tyNew(T.slot);TY=TYS[T.slot];viewTycoon()};
-  $$('[data-tytab]').forEach(b=>b.onclick=()=>{TYTAB=b.dataset.tytab;const y=window.scrollY;viewTycoon();window.scrollTo(0,y)});
-  const bindS=(id,k,fmt)=>{const el=$('#'+id);if(el)el.oninput=()=>{T[k]=+el.value;$('#'+id+'V').textContent=fmt(T[k]);svSchedule()}};
-  bindS('tyPerf','perf',eur);bindS('tyBrand','brand',eur);bindS('tyInfl','infl',eur);bindS('tyPrice','price',eur);bindS('tyMails','mails',v=>v);
-  [['tyDisc','discount'],['tyCapi','capi'],['tyAiCs','aiCs'],['tyAiCt','aiContent']].forEach(([id,k])=>{const el=$('#'+id);if(el)el.onchange=()=>{T[k]=el.checked;svSchedule()}});
-  const rr=()=>{const y=window.scrollY;viewTycoon();window.scrollTo(0,y)};
+/* Zeitsteuerung */
+function tyStart(){if(!TYRT.raf){TYRT.last=performance.now();TYRT.raf=requestAnimationFrame(tyLoop)}}
+function tyStop(){if(TYRT.raf){cancelAnimationFrame(TYRT.raf);TYRT.raf=0}TYRT.speed=0}
+function tySetSpeed(s){const T=TY;if(!T||T.done||T.dec!=null)s=0;TYRT.speed=s;$$('#tySpd [data-tyspd]').forEach(b=>b.classList.toggle('on',+b.dataset.tyspd===s));if(s===0)svWriteLocal();else TYW.dirty=true}
+function tyRefresh(parts){const set=(id,html)=>{const el=$('#'+id);if(el)el.innerHTML=html};
+  const dragging=document.activeElement&&document.activeElement.type==='range';
+  if(parts.top){set('tyTop',tyTopHtml())}
+  if(parts.kpi){set('tyKpi',tyKpiHtml())}
+  if(parts.charts){set('tyCharts',tyChartsHtml());set('tyCoachBox',tyCoach());const ev=TYEV[TY.m];set('tyEv',TY.done?'':(ev?`<div class="event" style="margin-top:14px"><div><b>Nächster Monat · ${esc(ev.t)}.</b> ${esc(ev.txt)}</div></div>`:'')+(TY.vcOffer?tyVcHtml():''));set('tyChron',tyChronHtml())}
+  if(parts.panel&&!dragging){const b=$('#tyPanelBody');if(b)b.innerHTML=tyPanel()}
+  bindGo();tyBind();tyLiveText();tyWorldDraw()}
+/* Monate abschließen */
+function tyFinish(){const T=TY,sc=tyScore(T);setBest('tycoon',sc);evid('strategie',T.dead?10:clamp(sc/30e6,0,1)*100);evid('media',T.dead?10:clamp(sc/30e6,0,1)*100);if(sc>=15e6)badge('tycoon');addXP(T.dead?20:150,'Markenimperium beendet')}
+function tyStep(n){const T=TY;let ran=0;
+  for(let i=0;i<n&&!T.done;i++){const inb=T.inbound,pen=T.sdelay>0;tyMonth(T,true);T.discount=false;T.day=0;ran++;
+    const h=T.hist[T.hist.length-1];if(inb>0&&!pen&&TYW.van.length<8)TYW.van.push({x:-14,y:272,d:1,col:'#E8C040'});
+    const inc=TYINC.find(x=>x.m===T.m&&!T.inc.includes(x.m));if(inc&&!T.done){T.dec=inc.m;break}
+    if(i<n-1&&(TYEV[T.m]||T.vcOffer||(h.profit<0&&T.cash/-h.profit<4)))break}
+  if(ran)addXP(ran*4,'Monat abgeschlossen');if(T.done)tyFinish();T.day=0;TYRT.dirty=true;tyProj();
+  if(T.dec!=null||T.done)tySetSpeed(0);
+  svWriteLocal();if(T.done||T.dec!=null){viewTycoon();window.scrollTo(0,0)}else tyRefresh({top:true,kpi:true,charts:true,panel:true})}
+function tyLoop(ts){TYRT.raf=requestAnimationFrame(tyLoop);
+  if(current!=='tycoon'||!TY||!$('#tyWorld')){tyStop();return}
+  if(document.hidden){if(TYRT.speed)tySetSpeed(0);return}
+  const dt=Math.min(0.25,(ts-TYRT.last)/1000);TYRT.last=ts;const T=TY;
+  if(TYRT.speed>0&&!T.done&&T.dec==null){T.day+=dt*TYRT.speed/TYSEC;tyWorldStep(dt);
+    if(T.day>=30){tyStep(1);return}
+    if(TYRT.dirty||ts-TYRT.lastProj>1500)tyProj();
+    if(ts-TYRT.lastLive>120){TYRT.lastLive=ts;tyLiveText()}}
+  else if(TYRT.dirty){tyProj();tyLiveText();TYW.dirty=true}
+  const full=fxLevel()==='full';
+  if(ts-TYRT.lastDraw>(full?80:300)&&(full||TYW.dirty)){TYRT.lastDraw=ts;if(full&&TYRT.speed===0)TYW.t+=0.08;tyWorldDraw()}}
+function tyBind(){const T=TY;const sb=$('#tySlots');if(sb)sb.onclick=()=>{tyStop();TY=null;viewTycoon()};
+  if(!T)return;const ng=$('#tyNewGame');if(ng)ng.onclick=()=>{TYS[T.slot]=tyNew(T.slot);TY=TYS[T.slot];TYRT.speed=0;TYRT.dirty=true;TYRT.sel=null;TYW.sp=[];TYW.van=[];TYW.emp=[];viewTycoon()};
+  $$('[data-tyspd]').forEach(b=>b.onclick=()=>{tySetSpeed(+b.dataset.tyspd)});
+  $$('[data-tytab]').forEach(b=>b.onclick=()=>{TYTAB=b.dataset.tytab;$$('[data-tytab]').forEach(x=>x.classList.toggle('on',x===b));$('#tyPanelBody').innerHTML=tyPanel();tyBind();tyLiveText()});
+  $$('[data-tyhot]').forEach(b=>b.onclick=()=>{const k=b.dataset.tyhot,d=TYB.find(x=>x.k===k);TYRT.sel=k;$('#tyInfo').innerHTML=tyInfoHtml(k);tyLiveText();TYW.dirty=true;SFX.blip();$$('[data-tysel-tab]').forEach(x=>x.onclick=()=>{TYTAB=x.dataset.tyselTab;if(!T.done){$$('[data-tytab]').forEach(y=>y.classList.toggle('on',y.dataset.tytab===TYTAB));$('#tyPanelBody').innerHTML=tyPanel();tyBind();tyLiveText();const ps=$('#tyPanelSec');if(ps)ps.scrollIntoView({behavior:'smooth',block:'start'})}})});
+  $$('[data-tysel-tab]').forEach(x=>x.onclick=()=>{TYTAB=x.dataset.tyselTab;if(!T.done){$$('[data-tytab]').forEach(y=>y.classList.toggle('on',y.dataset.tytab===TYTAB));$('#tyPanelBody').innerHTML=tyPanel();tyBind();tyLiveText();const ps=$('#tyPanelSec');if(ps)ps.scrollIntoView({behavior:'smooth',block:'start'})}});
+  const dirty=()=>{TYRT.dirty=true;svSchedule()};
+  const bindS=(id,k,fmt)=>{const el=$('#'+id);if(el)el.oninput=()=>{T[k]=+el.value;$('#'+id+'V').textContent=fmt(T[k]);dirty()}};
+  bindS('tyPerf','perf',eur);bindS('tyBrand','brand',eur);bindS('tyInfl','infl',eur);bindS('tyPrice','price',eur);bindS('tyMails','mails',v=>v);bindS('tySafe','safety',v=>de(v,1));
+  [['tyDisc','discount'],['tyCapi','capi'],['tyAiCs','aiCs'],['tyAiCt','aiContent']].forEach(([id,k])=>{const el=$('#'+id);if(el)el.onchange=()=>{T[k]=el.checked;dirty()}});
+  const rr=()=>{TYRT.dirty=true;tyProj();tyRefresh({top:false,kpi:false,charts:false,panel:true});svSchedule()};
   $$('[data-tyhire]').forEach(b=>b.onclick=()=>{T.pend[b.dataset.tyhire]++;rr()});
   $$('[data-tyfire]').forEach(b=>b.onclick=()=>{const k=b.dataset.tyfire;if(T.pend[k])T.pend[k]--;else if(T.team[k]){T.team[k]--;T.cash-=TYC.salary}rr()});
   const dv=$('#tyDev');if(dv)dv.onchange=()=>{T.dev=dv.value;T.devProg=0;rr()};
@@ -2823,11 +3083,14 @@ function tyBind(){const T=TY;const sb=$('#tySlots');if(sb)sb.onclick=()=>{TY=nul
   act('tyAmz',()=>{T.amazon=true;T.cash-=10000;T.news.push({m:T.m,t:'Amazon',txt:'Fjord verkauft jetzt auch auf Amazon.'})});
   act('tyFr',()=>{T.fr=true;T.frM=T.m;T.cash-=120000;T.news.push({m:T.m,t:'Expansion',txt:'Fjord startet in Frankreich.'})});
   act('tyLoan',()=>{T.debt+=100000;T.cash+=100000});act('tyRepay',()=>{T.debt-=50000;T.cash-=50000});
-  act('tyVcYes',()=>{const o=T.vcOffer;T.own*=o.pre/(o.pre+o.amt);T.cash+=o.amt;T.vcDone=true;T.vcOffer=null;T.news.push({m:T.m,t:'Finanzierung',txt:'1,5 Mio. € vom VC-Fonds sind auf dem Konto.'})});
-  act('tyVcNo',()=>{T.vcOffer=null;T.vcDone=true});
-  const step=n=>{for(let i=0;i<n&&!T.done;i++){tyMonth(T,true);T.discount=false;const h=T.hist[T.hist.length-1];if(i<n-1&&(TYEV[T.m]||T.vcOffer||(h.profit<0&&T.cash/-h.profit<4)))break}
-    addXP(n*4,'Monat abgeschlossen');if(T.done){const sc=tyScore(T);setBest('tycoon',sc);evid('strategie',T.dead?10:clamp(sc/30e6,0,1)*100);evid('media',T.dead?10:clamp(sc/30e6,0,1)*100);if(sc>=15e6)badge('tycoon');addXP(T.dead?20:150,'Markenimperium beendet')}svSchedule();viewTycoon();window.scrollTo(0,0)};
-  const g=$('#tyGo');if(g)g.onclick=()=>step(1);const g3=$('#tyGo3');if(g3)g3.onclick=()=>step(3)}
+  act('tyWh',()=>{const up=[60000,120000][T.wh];T.cash-=up;T.wh++;T.news.push({m:T.m,t:'Lager',txt:`Das Lager wurde erweitert: Kapazität ${de(TYWH[T.wh])} Stück.`})});
+  act('tySupp',()=>{T.cash-=15000;T.supp2=true;T.supp=0.96;T.news.push({m:T.m,t:'Einkauf',txt:'Zweitlieferant aufgebaut: 4 % günstiger, keine Lieferverzögerungen mehr.'})});
+  act('tyAtk',()=>{T.cash-=20000;T.rival.aw*=0.75;T.nps=Math.max(0,T.nps-1);T.atkM=T.m;T.news.push({m:T.m,t:'Konkurrenz',txt:'Vergleichskampagne gegen Dentara gestartet.'})});
+  const vc=(id,fn)=>{const el=$('#'+id);if(el)el.onclick=()=>{fn();TYRT.dirty=true;tyProj();tyRefresh({top:false,kpi:true,charts:true,panel:true});svSchedule()}};
+  vc('tyVcYes',()=>{const o=T.vcOffer;T.own*=o.pre/(o.pre+o.amt);T.cash+=o.amt;T.vcDone=true;T.vcOffer=null;T.news.push({m:T.m,t:'Finanzierung',txt:'1,5 Mio. € vom VC-Fonds sind auf dem Konto.'})});
+  vc('tyVcNo',()=>{T.vcOffer=null;T.vcDone=true});
+  $$('[data-tychoice]').forEach(b=>b.onclick=()=>{const inc=TYINC.find(i=>i.m===T.dec);if(!inc)return;const c=inc.ch[+b.dataset.tychoice];c.fx(T);T.inc.push(inc.m);T.dec=null;T.lastLearn={t:inc.t,txt:c.learn};T.news.push({m:T.m,t:inc.t,txt:`Entscheidung: ${c.l}.`});TYRT.dirty=true;if(T.done){tyFinish();svWriteLocal();viewTycoon();window.scrollTo(0,0);return}tyProj();svWriteLocal();viewTycoon()});
+  const g=$('#tyGo');if(g)g.onclick=()=>{if(T.dec!=null)return;tyStep(1)}}
 
 /* ========== WIRTSCHAFTSSIM 2: AGENTUR-TYCOON ========== */
 const AGR={perf:{n:'Performance',c:'var(--c1)'},content:{n:'Content & Social',c:'var(--c2)'},strat:{n:'Strategie',c:'var(--c5)'},data:{n:'Analytics',c:'var(--c6)'},design:{n:'Design',c:'var(--c4)'}};

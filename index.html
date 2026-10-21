@@ -493,8 +493,8 @@ body.mi-fs{overflow:hidden}
 .mi.fs .mi-stage{height:auto;flex:1}
 #miCv{display:block;width:100%;height:100%;cursor:grab;image-rendering:pixelated}
 #miWins{position:absolute;inset:0;pointer-events:none}
-.mi-hint,.mi-thint{position:absolute;left:10px;right:10px;top:10px;z-index:5;display:flex;gap:10px;align-items:center;justify-content:space-between;background:rgba(16,22,34,.88);color:#F4F6FA;padding:8px 12px;border-radius:3px;font-size:13.5px;border:1px solid #6A748A}
-.mi-thint{top:auto;bottom:10px;justify-content:center;font-size:13px}
+.mi-hint,.mi-thint{position:absolute;left:10px;right:10px;bottom:10px;z-index:5;display:flex;gap:10px;align-items:center;justify-content:space-between;background:rgba(16,22,34,.88);color:#F4F6FA;padding:8px 12px;border-radius:3px;font-size:13.5px;border:1px solid #6A748A}
+.mi-thint{bottom:auto;top:10px;justify-content:center;font-size:13px;z-index:6}
 .mi-hint[hidden],.mi-thint[hidden]{display:none}
 .mi-bar{display:flex;flex-wrap:wrap;gap:4px;padding:4px 6px;background:linear-gradient(#465064,#323A4C);border-top:2px solid #262C3A;color:#F4F6FA;font-size:13px}
 .mi-s{display:flex;align-items:center;gap:6px;padding:3px 9px;border:0;border-radius:2px;background:#262C3A;color:#F4F6FA;box-shadow:inset 1px 1px 0 #1a1f2a,inset -1px -1px 0 #5A6478;font:inherit;font-variant-numeric:tabular-nums;cursor:default;white-space:nowrap}
@@ -506,7 +506,7 @@ button.mi-s:hover{background:#323A4C}
 .mi-tick{flex:1 1 220px;min-width:0;overflow:hidden;text-overflow:ellipsis;justify-content:flex-start;text-align:left}
 .mi-tick[data-k=bad] b{color:#FF9A90}.mi-tick[data-k=good] b{color:#8CF0A0}
 /* Fenster */
-.miwin{position:absolute;left:12px;top:56px;width:min(340px,calc(100% - 24px));max-height:calc(100% - 70px);display:flex;flex-direction:column;pointer-events:auto;background:var(--surface,#fff);color:var(--ink,#111);border:2px solid #262C3A;border-radius:3px;box-shadow:3px 3px 0 rgba(0,0,0,.35),inset 1px 1px 0 rgba(255,255,255,.4);font-size:13.5px}
+.miwin{position:absolute;left:12px;top:12px;width:min(340px,calc(100% - 24px));max-height:calc(100% - 24px);display:flex;flex-direction:column;pointer-events:auto;background:var(--surface,#fff);color:var(--ink,#111);border:2px solid #262C3A;border-radius:3px;box-shadow:3px 3px 0 rgba(0,0,0,.35),inset 1px 1px 0 rgba(255,255,255,.4);font-size:13.5px}
 @media (max-width:620px){.miwin{left:6px!important;right:6px;top:auto!important;bottom:6px;width:auto;max-height:62%}}
 .miwin-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 4px 4px 10px;background:linear-gradient(#1E9C92,#14706A);color:#fff;cursor:move;user-select:none;touch-action:none}
 .miwin-h b{font-size:13.5px;letter-spacing:.01em}
@@ -3052,8 +3052,8 @@ function miGroundPatch(S,x,y){const G=RT.ground;for(let yy=y-1;yy<=y+1;yy++)for(
   for(let py=0;py<32;py++)for(let px=0;px<64;px++){const dx=px+0.5-32,dy=py+0.5,u=(dy/16+dx/32)/2,v=(dy/16-dx/32)/2;if(u<0||u>=1||v<0||v>=1)continue;const i=((oy+py)*G.img.width+ox+px)*4;d[i+3]=0}
   miGroundTile(S,G.img,xx,yy)}const ox=(x-y)*32+MIN*32-32-64,oy=(x+y)*16+MITOP-32;G.g.putImageData(G.img,0,0,ox,oy,192,96)}
 /* ---------- Kartengenerator: Lindholm ---------- */
-const MISC={lind:{n:'Lindholm',d:'Eine gemütliche Kleinstadt am Kanal. Dentara hat einen Laden an der Hauptstraße, die Markthalle verkauft eine billige Hausmarke. Du startest mit einem Lager und 75.000 €.',cash:75000,loanMax:150000,goal:{share:0.4,rating:650,month:24},rivCash:240000,rivAw:0.55,seed:7,diff:'Mittel'},
-  hafen:{n:'Hafenviertel Brakel',d:'Ein dichtes, preisbewusstes Viertel. Dentara ist hier stark, hat viel Geld und reagiert aggressiv. Weniger Startkapital.',cash:55000,loanMax:120000,goal:{share:0.35,rating:600,month:24},rivCash:420000,rivAw:0.7,seed:23,diff:'Schwer',segMix:[0.48,0.16,0.12,0.24]}};
+const MISC={lind:{n:'Lindholm',d:'Eine gemütliche Kleinstadt am Kanal. Dentara hat einen Laden an der Hauptstraße, die Markthalle verkauft eine billige Hausmarke. Du startest mit einem Lager und 75.000 €.',cash:75000,loanMax:150000,goal:{share:0.4,rating:750,month:24},rivCash:240000,rivAw:0.55,seed:7,diff:'Mittel'},
+  hafen:{n:'Hafenviertel Brakel',d:'Ein dichtes, preisbewusstes Viertel. Dentara ist hier stark, hat viel Geld und reagiert aggressiv. Weniger Startkapital.',cash:55000,loanMax:120000,goal:{share:0.35,rating:700,month:24},rivCash:420000,rivAw:0.7,seed:23,diff:'Schwer',segMix:[0.48,0.16,0.12,0.24]}};
 function miNewGame(slot,sc){const C=MISC[sc],S={v:3,slot,sc,seed:C.seed,t:0,cash:C.cash,loan:0,loanMax:C.loanMax,rating:300,g:'',pp:'',o:[],nid:1,ps:[],pr:{brush:4.9,tabs:5.9,floss:3.9,sonic:59},
   rs:{lv:1,cur:'tabs',prog:0,done:[]},camp:[],drv:1,prom:[],wh:{brush:6000,tabs:0,floss:0,sonic:0},tgt:{brush:8000,tabs:5000,floss:3000,sonic:400},ord:[],mon:null,hist:[],
   riv:{cash:C.rivCash,pr:{brush:3.49,paste:2.99},last:0,mood:'ruhig'},news:[],lst:{drog:false,drogOffer:false},vc:null,vcDone:false,done:false,dead:false,won:false,negDays:0,wx:{k:'sun',d:0},evd:[],tut:0,goal:C.goal,share:{me:0,riv:0,gen:0}};
@@ -3190,7 +3190,7 @@ function miPlace(S,t,x,y){const err=miCanPlace(S,t,x,y);if(err)return err;const 
   S.o.push(o);RT.byId.set(o.i,o);miOcc(o,o.i);S.cash-=T.cost||0;S.mon.build+=T.cost||0;RT.ff.clear();if(T.rad)miCov();return o}
 function miStat(){return{vis:0,buy:0,rev:0,lost:0,qf:0,wt:0,exp:0}}
 function miDemolish(S,o){if(o.o!=='me'&&!(o.o==='c'&&MIT[o.t].cat==='deco'&&o.mine))return'Das gehört dir nicht';const T=MIT[o.t];S.o=S.o.filter(x=>x!==o);RT.byId.delete(o.i);miOcc(o,-1);const ref=Math.round((T.cost||0)*(o.b>0?0.9:0.35));S.cash+=ref;S.mon.build-=ref;
-  if(o.q)o.q.forEach(w=>{w.mode='home';w.inq=null});RT.prom=RT.prom.filter(x=>x.store!==o.i);S.prom=S.prom.filter(x=>x!==o.i);RT.ff.clear();miCov();return null}
+  if(o.q)o.q.forEach(w=>miGoHome(S,w));o.q=[];RT.prom=RT.prom.filter(x=>x.store!==o.i);S.prom=S.prom.filter(x=>x!==o.i);RT.ff.clear();miCov();return null}
 function miPath(S,x,y,on){const i=y*MIN+x,k=+S.g[i];if(on){if(k!==0||RT.occ[i]>=0)return false;if(S.cash<15)return false;S.cash-=15;S.mon.build+=15;S.g=S.g.slice(0,i)+'1'+S.g.slice(i+1);S.pp=S.pp.slice(0,i)+'1'+S.pp.slice(i+1)}
   else{if(k!==1||S.pp[i]!=='1')return false;S.g=S.g.slice(0,i)+'0'+S.g.slice(i+1);S.pp=S.pp.slice(0,i)+'0'+S.pp.slice(i+1)}RT.ff.clear();miGroundPatch(S,x,y);return true}
 /* ---------- Simulation pro Bild ---------- */
@@ -3290,6 +3290,7 @@ function miDay(S,day){const D=miDate(day),seg=MISEG;
     if(c.k==='radio'){S.ps.forEach(p=>{if(Math.random()<0.04*boost){const b=p.a;p.a=Math.min(1,p.a+(1-p.a)*0.08);if(b<0.2&&p.a>=0.2&&!p.src)p.src=4;if(Math.random()<0.1)miThink(p,'radio')}})}
     if(c.k==='flyer'){const o=RT.byId.get(c.store);if(o)S.ps.forEach(p=>{const h=RT.byId.get(p.h);if(h&&Math.abs(h.x-o.x)+Math.abs(h.y-o.y)<9&&Math.random()<0.06*boost){p.a=Math.min(1,p.a+0.08);p.q=Math.min(1.2,p.q+0.3);if(!p.src&&p.a>=0.2)p.src=4;if(Math.random()<0.3)miThink(p,'flyer')}})}}
   /* Bedürfnisse, Vergessen, Tagesplan */
+  RT.walk.forEach(w=>{w.age=(w.age||0)+1;if(w.age>4){w.gone=true;if(w.inq&&w.inq.q)w.inq.q=w.inq.q.filter(x=>x!==w)}});RT.walk.filter(w=>w.gone).forEach(w=>{if(w.pi>=0)RT.out.delete(w.pi)});RT.walk=RT.walk.filter(w=>!w.gone);
   RT.sched=RT.sched.filter(e=>e.t>day);const rain=S.wx.k==='rain';
   S.ps.forEach((p,i)=>{p.q+=1/22*(0.7+Math.random()*0.6)+(D.m===10&&D.day>=24?0.03:0);p.a*=0.9965;p.r*=0.9985;p.f*=0.998;p.d*=0.999;
     if(p.q>=1&&!RT.out.has(i)){if(rain&&Math.random()<0.4){if(Math.random()<0.05)miThink(p,'rain');return}RT.sched.push({t:day+0.05+Math.random()*0.85,pi:i,k:'shop'})}
@@ -3331,7 +3332,7 @@ function miMonth(S,day){const M=S.mon;M.rating=S.rating;M.share=Object.assign({}
 /* ---------- Konkurrenz-KI ---------- */
 function miRivalDay(S,day){const R=S.riv,stores=S.o.filter(o=>o.o==='riv'&&MIT[o.t].cat==='shop'),ads=S.o.filter(o=>o.o==='riv'&&MIT[o.t].cat==='ad');R.cash-=(stores.reduce((s,o)=>s+(MIT[o.t].rent||0)+2*MIWAGE.sf,0)+ads.reduce((s,o)=>s+MIT[o.t].rent,0)+4000)/30;
   if(R.camp&&R.camp>day){S.ps.forEach(p=>{if(Math.random()<0.03)p.r=Math.min(1,p.r+(1-p.r)*0.1)})}
-  if(R.cash<-20000&&stores.length>1){const o=stores[stores.length-1];S.o=S.o.filter(x=>x!==o);RT.byId.delete(o.i);miOcc(o,-1);RT.ff.clear();R.cash+=15000;miNews(S,'Dentara schließt',`Dentara schließt eine Filiale. Der Preiskampf war zu teuer.`,[o.x,o.y],'good')}}
+  if(R.cash<-20000&&stores.length>1){const o=stores[stores.length-1];if(o.q)o.q.forEach(w=>miGoHome(S,w));o.q=[];S.o=S.o.filter(x=>x!==o);RT.byId.delete(o.i);miOcc(o,-1);RT.ff.clear();R.cash+=15000;miNews(S,'Dentara schließt',`Dentara schließt eine Filiale. Der Preiskampf war zu teuer.`,[o.x,o.y],'good')}}
 function miRivalMonth(S){const R=S.riv,sm=S.share.me,sr=S.share.riv,D=miDate(S.t);if(D.mon<2)return;const r=Math.random();
   if(sm>sr*0.8&&R.pr.brush>2.6&&r<0.6){R.pr.brush=+(R.pr.brush*0.9).toFixed(2);R.pr.paste=+(R.pr.paste*0.9).toFixed(2);R.mood='Preiskampf';miNews(S,'Dentara senkt die Preise',`Dentara-Zahnbürsten kosten jetzt ${eur2(R.pr.brush)}. Preisbewusste Kund:innen werden wechseln.`,null,'bad');return}
   if(sm<sr*0.5&&R.pr.brush<3.49&&r<0.5){R.pr.brush=+Math.min(3.49,R.pr.brush*1.08).toFixed(2);R.pr.paste=+Math.min(2.99,R.pr.paste*1.08).toFixed(2);R.mood='ruhig'}
@@ -3508,7 +3509,7 @@ function miWinObj(w){const S=MI,sel=MIV.sel;if(!sel||sel.k!=='o')return null;con
   if(o.t==='brunnen')return{t:'Brunnen',b:'<p>Der Brunnen ist der Treffpunkt der Stadt. Viele Ausflüge enden hier, deshalb ist der Marktplatz besonders belebt.</p>'};
   return{t:T.n,b:''}}
 function miWinPeep(w,pi){const S=MI,p=S.ps[pi];if(!p)return null;const L=RT.look[pi],sg=MISEG[p.s],home=RT.byId.get(p.h),walk=RT.walk.find(x=>x.pi===pi);
-  const src=['–','Werbung','Empfehlung','Promoter:in','Kampagne','Laden gesehen'][p.src||0];const stt=walk?(walk.inq?'wartet an der Kasse':walk.mode==='shop'?'geht einkaufen':walk.mode==='home'?'geht nach Hause':'ist unterwegs'):'ist zu Hause';
+  const src=p.a<0.2?'kennt Fjord kaum':['mehrere Kontakte','Werbung','Empfehlung','Promoter:in','Kampagne','Laden gesehen'][p.src||0];const stt=walk?(walk.inq?'wartet an der Kasse':walk.mode==='shop'?'geht einkaufen':walk.mode==='home'?'geht nach Hause':'ist unterwegs'):'ist zu Hause';
   const b=`<div class="mipeep"><canvas class="pxs" width="28" height="40" data-peep="${pi}" aria-hidden="true"></canvas><div><b>${esc(L.name)}</b><div class="note">${esc(sg.n)} · ${stt}</div></div></div>
    <p class="note">${esc(sg.d)}</p>
    <div class="mistk"><span>Kennt Fjord</span>${miBar(p.a,MIBR.me.main)}<b>${pct(p.a,0)}</b></div><div class="mistk"><span>Mag Fjord</span>${miBar((p.f+1)/2,p.f>=0?'var(--good,#3a3)':'var(--bad,#d33)')}<b>${p.f>=0?'+':''}${de(p.f*100,0)}</b></div>
@@ -3579,7 +3580,7 @@ function miWinHelp(w){const S=MI;return{t:'Berater',b:miAdvice(S).map(([t,d])=>`
 function miAct(a,el){const S=MI;if(!S)return;const [k,...r]=a.split(':'),arg=r.join(':');
   if(k==='close'){miCloseWin(arg);return}if(k==='tab'){const [wk,tk]=arg.split(':');const w=MIV.wins.find(x=>x.k===wk);if(w){w.tab=tk;miRenderWin(w,true)}return}
   if(k==='win'){if(MIV.wins.find(x=>x.k===arg))miCloseWin(arg);else miOpenWin(arg);return}
-  if(k==='speed'){miSpeed(+arg);return}if(k==='tool'){const t=arg==='path'?{k:'path'}:arg==='del'?{k:'del'}:null;if(arg==='b'){miOpenWin('build');return}miSetTool(MIV.tool&&t&&MIV.tool.k===t.k?null:t);return}
+  if(k==='speed'){if(+arg&&S.tut===0)S.tut=1;miSpeed(+arg);return}if(k==='tool'){const t=arg==='path'?{k:'path'}:arg==='del'?{k:'del'}:null;if(arg==='b'){if(S.tut<1)S.tut=1;miOpenWin('build');return}miSetTool(MIV.tool&&t&&MIV.tool.k===t.k?null:t);return}
   if(k==='build'){miSetTool({k:'b',t:arg});return}
   if(k==='heat'){MIV.heat=!MIV.heat;$$('[data-a="heat"]').forEach(b=>b.classList.toggle('on',MIV.heat));if(MIV.heat&&S.tut<2)toast('Rot heißt: viele Menschen gehen hier vorbei');return}
   if(k==='grid'){MIV.grid=!MIV.grid;return}if(k==='zoom'){const i=MIZ.indexOf(MIV.z);miSetZoom(MIZ[Math.max(0,Math.min(MIZ.length-1,i+(+arg)))]);return}

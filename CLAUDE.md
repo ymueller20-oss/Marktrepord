@@ -13,19 +13,20 @@ Marketing-Lernspiel auf Deutsch: Labore, Entscheidungsspiele und Wirtschaftssimu
 - **Effekte:** `FX` (Münzen, Flash, Shake, Banner), `SFX` (WebAudio), `cntRun()` erkennt geänderte KPIs (`.kpi .k`/`.kpi .v`) und `.verdict`-Elemente und löst Feedback aus. Stufen: `P.fx.level` = full | calm | off.
 - **Wichtig:** Schrift und Zahlen nie in Pixel-Fonts. Pixel-Look nur für Bilder, Rahmen und Effekte.
 
-## Markenimperium (Echtzeit-Tycoon)
-- **Engine:** `tyMonth(T,noise)` rechnet einen Monat (Kohorten, CAC/LTV, Lager, Konkurrenz `tyRival`). `tyProj()` rechnet per `structuredClone` eine Hochrechnung, damit die Kasse live mitläuft.
-- **Zeit:** `TYRT` (Geschwindigkeit, rAF-Schleife `tyLoop`), `T.day` 0–30, am Tagesende `tyStep(1)`. Entscheidungsereignisse in `TYINC` halten das Spiel an (`T.dec`).
-- **Welt:** `tyDrawWorld` zeichnet auf ein 480×290-Canvas, `TYB` sind die Gebäude, `TYW` die Figuren. Beschriftungen und Zahlen sind HTML-Hotspots (`.tyhot`, `data-tyv` wird per `nodeValue` aktualisiert, damit Autosave/Glossar/FX nicht jeden Tag feuern).
-- **Alte Spielstände:** `tyFix(T)` ergänzt neue Felder aus `tyNew`.
-- **Balance testen:** `tyNew`/`tyMonth` lassen sich per `new Function` aus `index.html` laden und in Node simulieren (Strategien: passiv ~4,5 Mio., solide mit Lagerausbau ~38–41 Mio.).
+## Markenimperium (isometrisches Aufbauspiel, RCT-artig)
+- **Code-Block:** zwischen `/* ===== MARKENIMPERIUM START ===== */` und `ENDE` in `index.html`. Drei Teile: Iso-Pixel-Engine (`mi…`-Sprites, 64×32-Kacheln, Spalten-Polygonfüller `miPoly`, Cache `MISPR`), Welt/Simulation, Oberfläche.
+- **Zustand:** `MI` = aktiver Spielstand (Karte `g` als Ziffern-String, Objekte `o`, Personas `ps`, Finanzen `mon`/`hist`, Rivale `riv`). `RT` = Laufzeit (Belegung `occ`, Flussfelder `ff` für Wegfindung, Spaziergänger `walk`, Fahrzeuge `veh`, Werbeabdeckung `cov`, Passantenzähler `foot`).
+- **Simulation:** `miTick(S,dt)` in Spieltagen (1 Tag = `MIDAY` = 10 s bei 1×), `miDay` (Kosten, Bedarf, Tagesplan, Lieferant, Kampagnen, Rivale, Wetter), `miMonth` (Bilanz, Rivalen-KI, Angebote, Ziel). Kaufentscheidung: `miOptions` (Nutzen je Zielgruppe `MISEG`: Preis, Qualität, Bekanntheit, Einstellung, Entfernung, Schlange) + Softmax `miPick`. Jede Persona steht für `MIK` Menschen.
+- **Speichern:** `miPack`/`miUnpack` (kompakt, ~65 KB pro Slot), `MIPK` = gepackte Slots, `miSnap()` schreibt den aktiven Stand (Monatswechsel, Pause, Bauen, alle 45 s). svCollect liefert `tycoon:{v:3,s:MIPK}`; ältere Tycoon-Formate werden ignoriert.
+- **Oberfläche:** Toolbar/Fenster sind HTML (`.miwin`, Aktionen über `data-a` → `miAct`), Karte ist ein Canvas (`miRender`). Texte und Zahlen nie ins Canvas außer den Geld-Popups (normale Schrift).
+- **Balance testen:** Im Browser per Playwright `miNewGame`, `miRT`, `miPlace` und viele `miTick(S,1/60)` aufrufen (240 Spieltage dauern ~1,5 s). Referenz Lindholm: nichts tun → Verlust, ein Laden + 2 Plakate → ~17 % Anteil nach 8 Monaten, aktive Expansion → Ziel (40 %, Rating 750) erreicht.
 
 ## Module (Auswahl)
 Budget-Simulator, A/B-Test-Labor, Churn-Radar, KI-Arena, Quiz, Mentor, Funnel-Doktor, Attributions-Detektiv, KI-Verhandlung, Marktkampf, Thronfolge, Preis, Krise, Meta-Ads-Simulator (CBO/ABO, Retargeting-Gruppe), Social-Media-Simulator, Markenimperium (Tycoon), Agentur-Tycoon, Produktlebenszyklus (Bass-Modell), Akademie mit Lektionen, Kompetenz-Kompass und Meisterprüfung.
 
 ## Testen
 - Syntax: Script aus `index.html` extrahieren und `node --check` laufen lassen.
-- Browser: Playwright, Seite per `file://` öffnen; Spiele lassen sich über `go('modul')` und die globalen Zustände (z. B. `ME`, `TY`, `AG`) skripten.
+- Browser: Playwright, Seite per `file://` öffnen; Spiele lassen sich über `go('modul')` und die globalen Zustände (z. B. `ME`, `MI`, `AG`) skripten.
 
 ## Veröffentlicht als
 claude.ai-Artifact mit den Capabilities `sample`, `db`, `user`, `downloads`.

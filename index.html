@@ -4096,6 +4096,10 @@ LMAP.unit=UNIT_LESSON;Object.assign(GAME_LESSON,{tycoon:'unit',funnel:'experimen
 
 
 
+
+
+
+
 const BKS_U=[
 {key:'b1',col:'red',title:'Massenbegehren',sub:'Die Kraft, die Werbung wirken lässt',lessons:[
  {title:'Die Kraft kommt vom Markt',cards:[
@@ -4656,6 +4660,33 @@ function bkSplit(text){
     const chunks=[];let buf='';paras.forEach(p=>{if(buf.length+p.length>size&&buf){chunks.push(buf);buf=''}buf+=(buf?'\n\n':'')+p});if(buf)chunks.push(buf);
     return{title:u.title||'Teil '+(ui+1),sub:chunks.length+(chunks.length===1?' Lektion':' Lektionen'),lessons:chunks.map((c,li)=>({title:chunks.length>1?(u.title?u.title+' · ':'Teil '+(ui+1)+' · ')+(li+1):(u.title||'Teil '+(ui+1)),src:c.slice(0,9000)}))}})}
 
+/* ---------- PDF lesen (pdf.js von cdnjs, wird erst beim ersten PDF geladen) ---------- */
+const BKPDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',BKPDFW='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+function bkLoadPdfJs(){if(window.pdfjsLib)return Promise.resolve(window.pdfjsLib);
+  return new Promise((res,rej)=>{const s=document.createElement('script');s.src=BKPDFJS;s.onload=()=>{if(window.pdfjsLib){window.pdfjsLib.GlobalWorkerOptions.workerSrc=BKPDFW;res(window.pdfjsLib)}else rej(new Error('pdfjs'))};s.onerror=()=>rej(new Error('pdfjs'));document.head.appendChild(s)})}
+async function bkPdfText(file,onProg){
+  const lib=await bkLoadPdfJs();const doc=await lib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+  const pages=[];
+  for(let n=1;n<=doc.numPages;n++){onProg(n,doc.numPages);const pg=await doc.getPage(n),tc=await pg.getTextContent();
+    const rows=[];tc.items.forEach(it=>{if(!it.str&&!it.hasEOL)return;const y=Math.round(it.transform[5]);let r=rows.find(r=>Math.abs(r.y-y)<=2);if(!r){r={y,x:[]};rows.push(r)}r.x.push([it.transform[4],it.str,it.height||0])});
+    rows.sort((a,b)=>b.y-a.y);
+    pages.push(rows.map(r=>({y:r.y,h:Math.max(0,...r.x.map(v=>v[2])),t:r.x.sort((a,b)=>a[0]-b[0]).map(v=>v[1]).join(' ').replace(/\s+/g,' ').trim()})).filter(l=>l.t))}
+  // Kopf-/Fußzeilen und Seitenzahlen entfernen (Kapitelüberschriften bleiben)
+  const isHead=t=>BKHEAD.test(t)&&t.length<=80;const cnt={};
+  const edge=(p,i)=>i<2||i>=p.length-2;
+  pages.forEach(p=>new Set(p.filter((l,i)=>edge(p,i)).map(l=>isHead(l.t)?l.t:l.t.replace(/\d+/g,'#'))).forEach(t=>{cnt[t]=(cnt[t]||0)+1}));
+  const rep=t=>doc.numPages>=4&&t.length<70&&cnt[isHead(t)?t:t.replace(/\d+/g,'#')]>=Math.max(3,doc.numPages*.4);
+  let out='',buf='',last=null;
+  pages.forEach(p=>{p=p.filter((l,i)=>!/^[\divxlc.\-– ]{1,8}$/i.test(l.t)&&!(edge(p,i)&&rep(l.t)));
+    const gaps=p.slice(1).map((l,i)=>p[i].y-l.y).filter(g=>g>0).sort((a,b)=>a-b),med=gaps.length?gaps[gaps.length>>1]:12;
+    const maxLen=Math.max(1,...p.map(l=>l.t.length));
+    p.forEach((l,i)=>{const prev=i?p[i-1]:null,gap=prev?prev.y-l.y:0;
+      const pt=prev?prev.t:last;const endsPara=pt&&(isHead(pt)||(prev?pt.length<maxLen*.55:buf.length<0)&&/[.!?:"“”]$/.test(pt));
+      const newPara=(!prev&&!last)||isHead(l.t)||endsPara||(prev&&gap>med*1.45)||(!prev&&last&&/[.!?"“”]$/.test(last)&&/^\p{Lu}/u.test(l.t)&&buf.length>0&&false);
+      if(newPara&&buf){out+=buf+'\n\n';buf=''}
+      buf=buf.endsWith('-')?buf.slice(0,-1)+l.t:buf+(buf?' ':'')+l.t;last=l.t})});
+  if(buf)out+=buf+'\n\n';
+  return out.trim()}
 /* ---------- Kurs erzeugen ---------- */
 const BK_SCHEMA=`{"titel":"kurzer Lektionstitel","karten":[{"h":"Kurztitel","b":"2 bis 3 Sätze"}],"fragen":[{"t":"mc","q":"Frage","o":["richtig","falsch","falsch","falsch"],"w":"Erklärung"},{"t":"tf","q":"Aussage","a":true,"w":"Erklärung"},{"t":"gap","q":"Satz mit genau einem ___ Lückenwort","o":["richtig","falsch","falsch","falsch"],"w":"Erklärung"},{"t":"sc","s":"kurzes Szenario","q":"Frage","o":["richtig","falsch","falsch","falsch"],"w":"Erklärung"},{"t":"why","q":"Warum-Frage","o":["richtig","falsch","falsch","falsch"],"w":"Erklärung"},{"t":"err","s":"Aussage mit Denkfehler","q":"Was ist der Fehler?","o":["richtig","falsch","falsch","falsch"],"w":"Erklärung"},{"t":"match","q":"Ordne zu","p":[["Begriff","Bedeutung"],["Begriff","Bedeutung"],["Begriff","Bedeutung"],["Begriff","Bedeutung"]]}],"erklaere":{"q":"Aufgabe zum Erklären in eigenen Worten","k":["Kernpunkt","Kernpunkt","Kernpunkt"]}}`;
 function bkLessonPrompt(b,title,src,topic){
@@ -4761,8 +4792,8 @@ function bkViewNew(){const F=BKV.form,more=F.more?bkBook(F.more):null;const ai=A
     <div class="grid2"><label class="fld"><span class="note">Titel</span><input type="text" id="bkT" value="${esc(more?more.title:F.title)}" ${more?'readonly':''} placeholder="z. B. Thinking, Fast and Slow" maxlength="120"></label>
     <label class="fld"><span class="note">Autor (optional)</span><input type="text" id="bkA" value="${esc(more?more.author:F.author)}" ${more?'readonly':''} placeholder="z. B. Daniel Kahneman" maxlength="80"></label></div>
     ${F.kind==='text'||more?`<label class="fld"><span class="note">Text aus dem Buch</span><textarea id="bkX" rows="10" placeholder="Füge hier Kapitel ein. Überschriften wie „Kapitel 3“ oder „## Titel“ werden erkannt und werden Kapitel in deinem Lernpfad. Lange Texte werden automatisch in Lektionen geteilt." maxlength="400000">${esc(F.text)}</textarea></label>
-      <div class="row"><label class="btn sm" for="bkF" style="cursor:pointer">Textdatei laden (.txt, .md)<input type="file" id="bkF" accept=".txt,.md,text/plain,text/markdown" hidden></label><span class="note" id="bkCnt">${F.text.length?F.text.length.toLocaleString('de-DE')+' Zeichen':''}</span></div>
-      <p class="note">${ai?'Die KI macht aus jedem Abschnitt Lernkarten und Fragen in verschiedenen Formen. Das dauert etwa eine halbe Minute je Lektion; der Lernpfad füllt sich währenddessen.':'Ohne KI-Verbindung entstehen Lernkarten und Lückenfragen direkt aus deinem Text. Mit KI sind die Fragen deutlich besser.'} Nutze nur Texte, die du verwenden darfst, etwa eigene Notizen oder gemeinfreie Werke. Das Buch wird nicht gespeichert, nur der daraus erstellte Kurs.</p>`:`<p class="note">Die KI entwirft Kapitel und Lektionen aus ihrem Wissen über das Buch. Prüfe wichtige Aussagen im Buch nach.</p>`}
+      <div class="row"><label class="btn sm" for="bkF" style="cursor:pointer">PDF oder Textdatei laden<input type="file" id="bkF" accept=".pdf,application/pdf,.txt,.md,text/plain,text/markdown" hidden></label><span class="note" id="bkCnt">${F.text.length?F.text.length.toLocaleString('de-DE')+' Zeichen':''}</span></div>
+      <p class="note">${ai?'Die KI macht aus jedem Abschnitt Lernkarten und Fragen in verschiedenen Formen. Das dauert etwa eine halbe Minute je Lektion; der Lernpfad füllt sich währenddessen.':'Ohne KI-Verbindung entstehen Lernkarten und Lückenfragen direkt aus deinem Text. Mit KI sind die Fragen deutlich besser.'} Nutze nur PDFs und Texte, die du verwenden darfst, etwa eigene Notizen oder gemeinfreie Werke. Das Buch wird nicht gespeichert, nur der daraus erstellte Kurs.</p>`:`<p class="note">Die KI entwirft Kapitel und Lektionen aus ihrem Wissen über das Buch. Prüfe wichtige Aussagen im Buch nach.</p>`}
     ${BKV.err?`<p class="note neg">${esc(BKV.err)}</p>`:''}
     <div class="row"><button class="btn primary" id="bkGo">${more?'Kapitel erstellen':'Kurs erstellen'}</button></div>
   </div>`;
@@ -4772,7 +4803,14 @@ function bkViewNew(){const F=BKV.form,more=F.more?bkBook(F.more):null;const ai=A
   const t=$('#bkT'),a=$('#bkA'),x=$('#bkX');
   if(!more){t.oninput=()=>F.title=t.value;a.oninput=()=>F.author=a.value}else{F.title=more.title;F.author=more.author||''}
   if(x)x.oninput=()=>{F.text=x.value;$('#bkCnt').textContent=F.text.length?F.text.length.toLocaleString('de-DE')+' Zeichen':''};
-  const f=$('#bkF');if(f)f.onchange=e=>{const file=e.target.files[0];if(!file)return;const fr=new FileReader();fr.onload=()=>{F.text=String(fr.result).slice(0,400000);if(!F.title&&!more){F.title=file.name.replace(/\.[^.]+$/,'')}bkRender()};fr.readAsText(file)};
+  const f=$('#bkF');if(f)f.onchange=async e=>{const file=e.target.files[0];if(!file)return;const base=file.name.replace(/\.[^.]+$/,'');
+    if(/\.pdf$/i.test(file.name)||file.type==='application/pdf'){const cnt=$('#bkCnt');
+      try{const t=await bkPdfText(file,(n,m)=>{if(cnt)cnt.textContent='PDF wird gelesen: Seite '+n+' von '+m+' …'});
+        if(t.replace(/\s/g,'').length<300){BKV.err='In dieser PDF steckt kein lesbarer Text. Vermutlich ist sie ein Scan. Scans kann ich nicht lesen; nutze eine PDF mit markierbarem Text oder füge den Text ein.';return bkRender()}
+        BKV.err=t.length>400000?'Die PDF ist sehr lang. Ich habe die ersten 400.000 Zeichen übernommen. Den Rest kannst du später als weitere Kapitel hinzufügen.':'';
+        F.text=t.slice(0,400000);if(!F.title&&!more)F.title=base;bkRender()}
+      catch(err){BKV.err='Die PDF konnte nicht gelesen werden. Entweder ist sie geschützt oder die PDF-Bibliothek ließ sich nicht laden. Kopiere den Text alternativ direkt hinein.';bkRender()}return}
+    const fr=new FileReader();fr.onload=()=>{F.text=String(fr.result).slice(0,400000);if(!F.title&&!more){F.title=base}bkRender()};fr.readAsText(file)};
   $('#bkGo').onclick=()=>{if(!F.title.trim()){BKV.err='Gib dem Buch einen Titel.';return bkRender()}bkCreate()}}
 function bkViewBook(){const b=bkBook(BKV.bid),G=BKV.gen&&BKV.gen.bid===b.id?BKV.gen:null;
   const tabs=[['path','Lernpfad'],['rev','Üben'],['lex','Lexikon']];

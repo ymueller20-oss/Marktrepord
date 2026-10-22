@@ -21,8 +21,15 @@ Marketing-Lernspiel auf Deutsch: Labore, Entscheidungsspiele und Wirtschaftssimu
 - **Oberfläche:** Toolbar/Fenster sind HTML (`.miwin`, Aktionen über `data-a` → `miAct`), Karte ist ein Canvas (`miRender`). Texte und Zahlen nie ins Canvas außer den Geld-Popups (normale Schrift).
 - **Balance testen:** Im Browser per Playwright `miNewGame`, `miRT`, `miPlace` und viele `miTick(S,1/60)` aufrufen (240 Spieltage dauern ~1,5 s). Referenz Lindholm: nichts tun → Verlust, ein Laden + 2 Plakate → ~17 % Anteil nach 8 Monaten, aktive Expansion → Ziel (40 %, Rating 750) erreicht.
 
+## Bücher (Duolingo-Lernpfade)
+- **Code-Block:** zwischen `/* ===== BUECHER START ===== */` und `ENDE` in `index.html` (davor `BKS_U` = Kursdaten zu „Breakthrough Advertising“, aus der App „Breakthrough Lernpfad“ übernommen). Präfix `bk…`, Ansicht `viewBooks` (`go('buecher')`).
+- **Kursformat:** `book={id,title,author,units:[{key,col,title,sub,lessons:[{title,cards:[[h,b]],qs:[],ex}]}]}`. Fragetypen `mc, sc, why, err` (richtig = `o[0]`, `a:0`, Player mischt), `tf`, `gap` (`___`), `match`, `ex` (Erklären, KI-Bewertung oder Selbstcheck). Fragen-IDs `unit-lektion-index` (`bkIndexIds`).
+- **Neue Bücher:** `bkCreate` → Text (`bkSplit` erkennt Überschriften, teilt in Lektionen) oder nur Titel/Autor (`bkOutline`, KI). `bkGenerate` erzeugt Lektionen mit KI (2 parallel, `bkFixLesson` säubert Ausgaben, Fallback `bkLocalLesson`) oder ohne KI lokal (Lückenfragen aus dem Text). Der Lernpfad füllt sich währenddessen.
+- **Zustand:** `BK` (Serie, XP, Herzen, Fortschritt je Buch `p[id]={done,miss}`, gelöschte Bücher `del`) und `BKD` (eigene Bücher). Speichern: `svCollect` liefert `books` und je eigenem Buch `bk_<id>`; `bkApply` in `svApply`. XP gehen zusätzlich an `addXP`.
+- **Player:** `#bkPlayer` (Overlay außerhalb von `#view`), Herzen (alle 20 Min. eins), Tagesziel 50 XP, Kapiteltests, Abschlussprüfung, „Üben“ (Fehler, Mix, Erklären).
+
 ## Module (Auswahl)
-Budget-Simulator, A/B-Test-Labor, Churn-Radar, KI-Arena, Quiz, Mentor, Funnel-Doktor, Attributions-Detektiv, KI-Verhandlung, Marktkampf, Thronfolge, Preis, Krise, Meta-Ads-Simulator (CBO/ABO, Retargeting-Gruppe), Social-Media-Simulator, Markenimperium (Tycoon), Agentur-Tycoon, Produktlebenszyklus (Bass-Modell), Akademie mit Lektionen, Kompetenz-Kompass und Meisterprüfung.
+Budget-Simulator, A/B-Test-Labor, Churn-Radar, KI-Arena, Quiz, Mentor, Funnel-Doktor, Attributions-Detektiv, KI-Verhandlung, Marktkampf, Thronfolge, Preis, Krise, Meta-Ads-Simulator (CBO/ABO, Retargeting-Gruppe), Social-Media-Simulator, Markenimperium (Tycoon), Agentur-Tycoon, Produktlebenszyklus (Bass-Modell), Bücher-Lernpfade (Duolingo-Stil), Akademie mit Lektionen, Kompetenz-Kompass und Meisterprüfung.
 
 ## Testen
 - Syntax: Script aus `index.html` extrahieren und `node --check` laufen lassen.

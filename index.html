@@ -585,6 +585,7 @@ input[type=text]:focus,textarea:focus,select:focus{outline:none;box-shadow:3px 3
 @media (max-width:720px){.hero-stamp{display:none}}
 .sec-h{border-bottom:3px solid var(--ink);padding-bottom:6px;margin-bottom:14px}
 ::selection{background:var(--hi);color:#17162B}
+@media (max-width:480px){.top-in{gap:6px;padding-inline:max(12px,env(safe-area-inset-left,0px))}.logo{font-size:17px;gap:6px}.logo-mark{width:26px;height:26px}.top-in .btn,.xp-pill{padding:4px 7px;box-shadow:2px 2px 0 var(--ink);font-size:12px}}
 @media (prefers-reduced-motion:reduce){.btn,.mod,.lcard{transition:none}.btn:hover,.mod:hover,.lcard:hover{transform:none}}
 /* Bücher: Duolingo-Lernpfad */
 .bk-stats{display:flex;gap:14px;align-items:center}
@@ -872,11 +873,14 @@ function home(){
     return `<svg class="mini-curve" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2.5"/><line x1="0" y1="${H-4}" x2="${W}" y2="${H-50}" stroke="currentColor" stroke-dasharray="4 4" opacity=".4"/></svg>`})();
   $('#view').innerHTML=`
   <section class="hero">
-    <div class="pxban hero-px"><canvas class="pxs" data-scene="home" width="256" height="72" aria-hidden="true"></canvas><span class="pxera">Von Rom bis heute · Märkte aller Epochen</span></div>
+    <span class="hero-stamp" aria-hidden="true">NEU: BÜCHER</span>
     <div>
+      <div class="pxban hero-px"><canvas class="pxs" data-scene="home" width="256" height="72" aria-hidden="true"></canvas><span class="pxera">Von Rom bis heute · Märkte aller Epochen</span></div>
       <div class="eyebrow">Marketing · Daten · KI</div>
       <h1>Triff Entscheidungen.<br>Die <em>Daten</em> antworten.</h1>
-      <p class="lead">Labore und Entscheidungsspiele gegen KI-gesteuerte Konkurrenz. Jede Entscheidung fließt in dein Kompetenzprofil, und der Kompass zeigt dir den schnellsten Weg zu einer ehrlichen Antwort: Hast du das Handwerk verstanden? Neu hier: Starte in der Akademie. Gepunktet unterstrichene Fachbegriffe kannst du überall antippen.</p>
+      <p class="lead">Labore und Entscheidungsspiele gegen KI-gesteuerte Konkurrenz, Aufbauspiele mit ganzen Städten voller Kund:innen und Lernpfade für beliebige Bücher. Jede Entscheidung fließt in dein Kompetenzprofil, und der Kompass zeigt dir den schnellsten Weg zu einer ehrlichen Antwort: Hast du das Handwerk verstanden?</p>
+      <div class="hero-cta"><button class="btn primary" data-go="akademie">Hier starten</button><button class="btn" data-go="buecher">Bücher lernen</button><button class="btn ghost" data-go="kompass">Wo stehe ich?</button></div>
+      <div class="hero-note"><svg viewBox="0 0 70 46" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8c18-6 40-4 52 14 4 6 5 12 4 18"/><path d="M50 32l10 9 7-12"/></svg><span class="hand">Gepunktet unterstrichene Fachbegriffe kannst du überall antippen.</span></div>
     </div>
     <div class="panel player stack" style="gap:10px">
       <div class="row" style="justify-content:space-between"><span class="eyebrow">Dein Level</span><span class="num" style="font-size:13px">${de(P.xp)} XP</span></div>

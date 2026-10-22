@@ -1,28 +1,29 @@
 <title>Marktlabor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;600&family=Caveat:wght@600&display=swap">
 <style>
 /* Layout: sticky lab header, home = player card + module grid; each module is a focused "experiment bench" view */
 :root{
-  --bg:#ECEFF4; --surface:#FFFFFF; --sunk:#E2E6EE; --ink:#131A2C; --muted:#5A6378; --line:#D3D8E2;
-  --accent:#E2492F; --accent-ink:#FFFFFF; --data:#16807C;
-  --good:#23824F; --warn:#B87A0C; --bad:#C23447;
-  --c1:#2457C5; --c2:#D2467A; --c3:#7D8496; --c4:#D0841A; --c5:#7B4FC9; --c6:#1F9A8A;
-  --f-display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
-  --f-body:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --f-mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --bg:#E4E7E1; --surface:#F7F7F2; --sunk:#D6D9D0; --ink:#17162B; --muted:#54536A; --line:#B9BBB1; --shadow:#17162B;
+  --accent:#F0407F; --accent-ink:#17162B; --data:#2243C8; --hi:#FFDD33; --grain:.2;
+  --good:#0B8452; --warn:#9A6300; --bad:#CF1B33;
+  --c1:#2243C8; --c2:#F0407F; --c3:#7B7A96; --c4:#F26A21; --c5:#7A3FD0; --c6:#0E9A5E;
+  --f-display:"Dela Gothic One", "Arial Black", "Segoe UI", sans-serif;
+  --f-body:"Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"Spline Sans Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --f-hand:"Caveat", "Segoe Script", cursive;
   --r:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E1220; --surface:#171D2D; --sunk:#111626; --ink:#E7EAF2; --muted:#98A1B6; --line:#283149;
-  --accent:#FF6A4D; --accent-ink:#1A0C08; --data:#3FC2BC;
+  --bg:#16152B; --surface:#201F3C; --sunk:#1A1932; --ink:#F1EEFF; --muted:#A9A7C6; --line:#3A3963; --shadow:#07061A;
+  --accent:#FF6FA8; --accent-ink:#17162B; --data:#8CA3FF; --hi:#C9A800; --grain:.9;
   --good:#4CC384; --warn:#E9B04A; --bad:#FF6B7F;
-  --c1:#6E95F0; --c2:#F07AA2; --c3:#A3A9B8; --c4:#F0B04E; --c5:#A98AF0; --c6:#45C9B6; color-scheme:dark}}
+  --c1:#8CA3FF; --c2:#FF6FA8; --c3:#A9A7C6; --c4:#FF9A5C; --c5:#B692FF; --c6:#45C9B6; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0E1220; --surface:#171D2D; --sunk:#111626; --ink:#E7EAF2; --muted:#98A1B6; --line:#283149;
-  --accent:#FF6A4D; --accent-ink:#1A0C08; --data:#3FC2BC;
+  --bg:#16152B; --surface:#201F3C; --sunk:#1A1932; --ink:#F1EEFF; --muted:#A9A7C6; --line:#3A3963; --shadow:#07061A;
+  --accent:#FF6FA8; --accent-ink:#17162B; --data:#8CA3FF; --hi:#C9A800; --grain:.9;
   --good:#4CC384; --warn:#E9B04A; --bad:#FF6B7F;
-  --c1:#6E95F0; --c2:#F07AA2; --c3:#A3A9B8; --c4:#F0B04E; --c5:#A98AF0; --c6:#45C9B6; color-scheme:dark}
+  --c1:#8CA3FF; --c2:#FF6FA8; --c3:#A9A7C6; --c4:#FF9A5C; --c5:#B692FF; --c6:#45C9B6; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
 h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-0.01em}
@@ -478,6 +479,113 @@ h1 em{font-style:normal}
 
 .mdist{display:grid;grid-template-columns:minmax(110px,180px) 1fr 44px;gap:8px;align-items:center;font-size:13px}.mdist i{display:block;height:10px;background:var(--data);border-radius:2px;min-width:2px}.mdist b{text-align:right;font-weight:600}
 .msets{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 18px}
+/* ===== SKIN: Siebdruck-Atelier =====
+   Papier mit Korn, zwei Druckfarben (Pink, Kobalt) plus Textmarker-Gelb, harte Versatzschatten, leicht schiefe Karten.
+   Zeigt Handwerk statt Hochglanz. Tokens stehen oben in :root. */
+html{scroll-behavior:auto}
+body{font-family:var(--f-body);font-size:15.5px;line-height:1.5;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:var(--grain);mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .1 0 0 0 0 .2 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+:root[data-theme="dark"] body::before{mix-blend-mode:screen}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body::before{mix-blend-mode:screen}}
+h1,h2{font-family:var(--f-display);font-weight:400;letter-spacing:-.005em;line-height:1.02}
+h3{font-family:var(--f-body);font-weight:800;letter-spacing:-.01em}
+.hand{font-family:var(--f-hand);font-weight:600;font-size:1.35em;line-height:1.05;color:var(--data)}
+.hl{background:linear-gradient(transparent 58%,var(--hi) 58%,var(--hi) 92%,transparent 92%);padding:0 .08em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.eyebrow{font-weight:600;color:var(--muted);letter-spacing:.14em}
+.mono,.num,.ch-val,.kpi .v,table.data td{font-family:var(--f-mono)}
+
+/* Kopfleiste: Passerversatz in Pink */
+.top{background:var(--bg);backdrop-filter:none;border-bottom:3px solid var(--ink);box-shadow:0 4px 0 var(--accent)}
+.logo{font-family:var(--f-display);font-weight:400;font-size:21px;letter-spacing:-.01em}
+.logo-mark{width:30px;height:30px;border-radius:7px 9px 6px 10px;background:var(--accent);border:2.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink);transform:rotate(-7deg)}
+.logo-mark svg path,.logo-mark svg polyline{stroke:var(--ink)}
+.xp-pill{border:2px solid var(--ink);border-radius:6px;background:var(--surface);font-weight:600;box-shadow:2px 2px 0 var(--ink)}
+
+/* Schaltflächen wie Stempel */
+.btn{border:2.5px solid var(--ink);background:var(--surface);color:var(--ink);border-radius:7px 10px 8px 11px;padding:9px 15px;font-weight:700;box-shadow:3px 3px 0 var(--ink);transition:transform .09s,box-shadow .09s,background .15s}
+.btn:hover{background:var(--surface);transform:translate(-1px,-1px) rotate(-.4deg);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.btn.primary,.btn.primary:hover{background:var(--accent);border-color:var(--ink);color:var(--accent-ink);filter:none}
+.btn.ghost{background:transparent;box-shadow:none;border-style:dashed;border-width:2px}
+.btn.ghost:hover{box-shadow:none;transform:none;background:var(--sunk)}
+.btn.sm{padding:5px 10px;box-shadow:2px 2px 0 var(--ink)}
+.btn[disabled]{opacity:.5;box-shadow:none;transform:none}
+.back{font-weight:600;color:var(--muted);text-decoration:underline;text-decoration-style:wavy;text-decoration-thickness:1px;text-underline-offset:4px}
+.back:hover{color:var(--ink)}
+
+/* Karten wie aufgeklebte Zettel */
+.panel,.ai-box,.bk-bcard,.bk-hcard,.bk-daily,.bk-lex details,.verdict,details.concept{border:2px solid var(--ink);border-radius:9px 12px 8px 13px;background:var(--surface);box-shadow:4px 4px 0 var(--shadow)}
+details.concept{background:var(--sunk);box-shadow:none;border-style:dashed}
+.panel.player{background:var(--surface);transform:rotate(.6deg);position:relative;margin-top:6px}
+.panel.player::before{content:"";position:absolute;top:-13px;left:50%;width:84px;height:24px;margin-left:-42px;background:var(--hi);opacity:.9;transform:rotate(-3deg);box-shadow:0 1px 0 rgba(0,0,0,.18);clip-path:polygon(0 8%,4% 0,8% 8%,12% 0,16% 8%,100% 0,100% 100%,96% 92%,92% 100%,88% 92%,84% 100%,0 92%)}
+.lvl{font-family:var(--f-display)!important;font-weight:400!important}
+.bar{height:13px;border:2px solid var(--ink);border-radius:3px;background:var(--sunk)}
+.bar>i{border-radius:0;background:repeating-linear-gradient(135deg,var(--accent) 0 6px,color-mix(in srgb,var(--accent) 72%,var(--ink)) 6px 9px)}
+.badge{border:1.5px dashed var(--muted);border-radius:4px;font-weight:600}
+.badge.got{background:var(--hi);border:1.5px solid var(--ink);color:var(--ink);transform:rotate(-1.5deg)}
+.badge.got:nth-child(even){transform:rotate(1.2deg)}
+
+/* Modulkarten */
+.mod{border:2.5px solid var(--ink);border-radius:9px 12px 8px 13px;background:var(--surface);box-shadow:5px 5px 0 var(--shadow);transition:transform .12s,box-shadow .12s}
+.mods>.mod:nth-child(3n+1){transform:rotate(-.35deg)}.mods>.mod:nth-child(3n+2){transform:rotate(.3deg)}
+.mod:hover{border-color:var(--ink);transform:translate(-2px,-3px) rotate(-.6deg);box-shadow:8px 8px 0 var(--accent)}
+.mod.feat{background:var(--ink);color:var(--bg);box-shadow:6px 6px 0 var(--accent)}
+.mod.feat:hover{border-color:var(--ink);box-shadow:9px 9px 0 var(--hi)}
+.mod h3{font-family:var(--f-display);font-weight:400;font-size:22px;letter-spacing:0}
+.tag{border:1.5px solid currentColor;background:transparent;border-radius:3px;font-weight:600}
+.mod.feat .tag{background:transparent;color:var(--bg)}
+.tag.ki{background:var(--hi);color:#17162B;border-color:#17162B}
+.sec-h h2{font-size:clamp(24px,4.4vw,32px)}
+.sec-h .note{font-family:var(--f-hand);font-size:19px;font-weight:600;color:var(--data)}
+
+/* Spielgerüst */
+.ghead h2{font-size:clamp(28px,5.4vw,42px);font-weight:400}
+.event{border:2px solid var(--ink);border-left-width:9px;border-left-color:var(--accent);border-radius:3px 10px 10px 3px;background:var(--surface);box-shadow:3px 3px 0 var(--shadow)}
+.kpi{background:var(--surface);border:2px solid var(--ink);border-radius:4px 7px 5px 8px}
+.kpi .k{font-weight:600;letter-spacing:.02em}
+.kpi .v{font-weight:600}
+table.data th{color:var(--ink);border-bottom:2px solid var(--ink);font-weight:700}
+table.data td{border-bottom:1px dashed var(--line)}
+.seg{border:2px solid var(--ink);border-radius:6px 8px 7px 9px}
+.seg button{font-weight:700;background:var(--surface);color:var(--ink)}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.chip{border:2px solid var(--ink);background:var(--surface);font-weight:600}
+.chip:hover{background:var(--hi);border-color:var(--ink);color:#17162B}
+.opt{border:2px solid var(--ink);border-radius:6px 9px 7px 10px;background:var(--surface);box-shadow:2px 2px 0 var(--ink)}
+.opt:hover{border-color:var(--ink);background:var(--sunk)}
+.opt.right{border-color:var(--ink);background:color-mix(in srgb,var(--good) 24%,var(--surface))}
+.opt.wrong{border-color:var(--ink);background:color-mix(in srgb,var(--bad) 22%,var(--surface))}
+.q{font-family:var(--f-display);font-weight:400}
+input[type=text],textarea,select,input[type=number]{border:2px solid var(--ink);border-radius:6px 8px 7px 9px;background:var(--surface);color:var(--ink)}
+input[type=text]:focus,textarea:focus,select:focus{outline:none;box-shadow:3px 3px 0 var(--accent)}
+:focus-visible{outline:3px solid var(--data);outline-offset:2px}
+.msg.u{background:var(--ink);color:var(--bg);border-radius:12px 12px 2px 12px}
+.msg.a{border:2px solid var(--ink);border-radius:12px 12px 12px 2px;background:var(--surface)}
+.budgetbar{border:2px solid var(--ink);border-radius:9px;box-shadow:4px 4px 0 var(--shadow)}
+.ch-row{border-bottom:1px dashed var(--line)}
+.ai-label{color:var(--data);font-weight:700}
+.contstrip{border:2px dashed var(--ink);background:color-mix(in srgb,var(--hi) 30%,var(--surface));border-radius:8px 11px 9px 12px}
+.toast{background:var(--ink);color:var(--bg);border:2px solid var(--accent);border-radius:6px;box-shadow:3px 3px 0 var(--accent)}
+.lcard{border:2px solid var(--ink);border-radius:8px 11px 7px 12px;background:var(--surface);box-shadow:3px 3px 0 var(--shadow)}
+.lcard:hover{transform:translate(-1px,-2px);box-shadow:5px 5px 0 var(--accent)}
+.lcard.next{background:color-mix(in srgb,var(--hi) 36%,var(--surface))}
+.pxban{border:3px solid var(--ink);border-radius:3px;box-shadow:5px 5px 0 var(--shadow)}
+
+/* Startseite */
+.hero{align-items:center;gap:26px;margin-bottom:34px;position:relative}
+.hero h1{font-size:clamp(36px,7.6vw,66px);line-height:.98;font-weight:400}
+.hero h1 em{font-style:normal;color:var(--ink);background:linear-gradient(transparent 56%,var(--accent) 56%,var(--accent) 90%,transparent 90%);padding:0 .06em}
+.hero .lead{margin-top:14px;color:var(--ink);opacity:.82;font-size:16.5px}
+.hero-note{display:flex;align-items:flex-end;gap:10px;margin-top:12px}
+.hero-note svg{width:70px;height:46px;flex:none;color:var(--data)}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.hero-stamp{position:absolute;top:-14px;right:2%;transform:rotate(7deg);border:3px solid var(--accent);color:var(--accent);padding:3px 10px;font-family:var(--f-display);font-size:15px;letter-spacing:.06em;border-radius:4px;background:color-mix(in srgb,var(--bg) 70%,transparent);opacity:.95;pointer-events:none}
+.hero-px{margin-bottom:16px;transform:rotate(-.5deg)}
+@media (max-width:720px){.hero-stamp{display:none}}
+.sec-h{border-bottom:3px solid var(--ink);padding-bottom:6px;margin-bottom:14px}
+::selection{background:var(--hi);color:#17162B}
+@media (prefers-reduced-motion:reduce){.btn,.mod,.lcard{transition:none}.btn:hover,.mod:hover,.lcard:hover{transform:none}}
 /* Bücher: Duolingo-Lernpfad */
 .bk-stats{display:flex;gap:14px;align-items:center}
 .bk-st{display:flex;align-items:center;gap:5px;font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
